@@ -1,0 +1,2752 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="manifest" href="/manifest.json">
+<meta name="theme-color" content="#0b1c2c">
+<link rel="apple-touch-icon" href="/icon-192.png">
+<title>HairInk Solutions | Hair Transplant & Tattoo Services USA</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --navy: #0b1c2c; --navy2: #1e3a5f; --blue: #3b82f6;
+  --cream: #f8fafc; --text: #334155; --muted: #64748b;
+  --accent: #f59e0b; --green: #10b981; --border: #e2e8f0;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'Inter', system-ui, sans-serif; background: var(--cream); color: var(--text); line-height: 1.55; min-height: 100vh; }
+.page { display: none; min-height: 100vh; }
+.page.active { display: block; }
+a { text-decoration: none; color: inherit; cursor: pointer; }
+img { max-width: 100%; display: block; }
+
+.header {
+  background: var(--navy); color: white; padding: 0.85rem 1.4rem;
+  display: flex; align-items: center; justify-content: space-between;
+  position: sticky; top: 0; z-index: 100;
+}
+.logo { display: flex; align-items: center; gap: 0.6rem; font-weight: 700; font-size: 1.1rem; cursor: pointer; }
+.logo-icon {
+  width: 36px; height: 36px; display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+.logo-svg { display: block; border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.2); }
+.nav { display: flex; gap: 0.35rem; align-items: center; flex-wrap: wrap; }
+.nav a, .nav button {
+  color: rgba(255,255,255,0.9); background: transparent; border: 1px solid rgba(255,255,255,0.18);
+  padding: 0.4rem 0.9rem; border-radius: 999px; font-size: 0.82rem; font-weight: 500;
+  cursor: pointer; font-family: inherit;
+}
+.nav a:hover, .nav button:hover { background: rgba(255,255,255,0.12); }
+.btn-reg { background: rgba(255,255,255,0.12) !important; font-weight: 600 !important; }
+
+.hero {
+  background: linear-gradient(145deg, #0b1c2c 0%, #1e3a5f 55%, #1e40af 100%);
+  color: white; padding: 3.5rem 1.5rem 4rem;
+}
+.hero h1 {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: clamp(2rem, 5vw, 2.9rem); font-weight: 700; line-height: 1.15; margin-bottom: 1rem; max-width: 640px;
+}
+.hero p { font-size: 1.05rem; opacity: 0.92; max-width: 500px; margin-bottom: 1.6rem; }
+.hero-btns { display: flex; gap: 0.8rem; flex-wrap: wrap; }
+.btn {
+  padding: 0.7rem 1.35rem; border-radius: 9px; font-weight: 600; font-size: 0.92rem;
+  border: none; cursor: pointer; font-family: inherit; display: inline-flex; align-items: center; justify-content: center;
+}
+.btn-primary { background: var(--navy2); color: white; }
+.btn-primary:hover { background: #152a45; }
+.btn-accent { background: linear-gradient(135deg, #f59e0b, #d97706); color: white; }
+.btn-outline { background: white; border: 1.5px solid var(--border); color: var(--navy2); }
+.btn-block { width: 100%; }
+.btn-lg { padding: 0.85rem 1.6rem; font-size: 1rem; }
+.btn-sm { padding: 0.4rem 0.85rem; font-size: 0.82rem; }
+
+.container { max-width: 1100px; margin: 0 auto; padding: 0 1.3rem; }
+section { padding: 3.2rem 1.3rem; }
+.section-title {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 1.85rem; color: var(--navy); margin-bottom: 0.5rem; text-align: center;
+}
+.section-desc { text-align: center; color: var(--muted); max-width: 520px; margin: 0 auto 2rem; }
+
+.svc-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 1.2rem; }
+.svc-card {
+  background: white; border: 1px solid var(--border); border-radius: 14px; overflow: hidden;
+  transition: 0.2s; cursor: pointer;
+}
+.svc-card:hover { box-shadow: 0 10px 30px rgba(11,28,44,0.1); transform: translateY(-2px); }
+.svc-img {
+  height: 160px; background: #e2e8f0; background-size: cover; background-position: center; position: relative;
+}
+.svc-img .tag {
+  position: absolute; bottom: 10px; left: 10px;
+  background: rgba(11,28,44,0.85); color: white; font-size: 0.72rem;
+  padding: 0.25rem 0.6rem; border-radius: 6px; font-weight: 600;
+}
+.svc-body { padding: 1.15rem 1.2rem 1.3rem; }
+.svc-body h3 { font-size: 1.05rem; color: var(--navy); margin-bottom: 0.35rem; }
+.svc-body p { font-size: 0.88rem; color: var(--muted); margin-bottom: 0.7rem; }
+.svc-price { font-size: 1.15rem; font-weight: 800; color: var(--navy2); margin-bottom: 0.8rem; }
+.svc-price span { font-size: 0.78rem; font-weight: 500; color: var(--muted); }
+
+/* Service detail */
+.page-hero {
+  background: linear-gradient(145deg, #0b1c2c, #1e3a5f); color: white;
+  padding: 2.5rem 1.3rem 2.8rem;
+}
+.page-hero h1 { font-family: 'Playfair Display', Georgia, serif; font-size: clamp(1.6rem, 4vw, 2.3rem); margin-bottom: 0.5rem; }
+.page-hero p { opacity: 0.9; max-width: 560px; }
+.detail-grid { display: grid; grid-template-columns: 1.2fr 1fr; gap: 1.5rem; }
+@media (max-width: 800px) { .detail-grid { grid-template-columns: 1fr; } }
+.detail-img {
+  height: 280px; border-radius: 14px; background-size: cover; background-position: center; background-color: #e2e8f0;
+}
+.tier-card {
+  background: white; border: 1px solid var(--border); border-radius: 12px; padding: 1.1rem 1.2rem; margin-bottom: 0.8rem;
+}
+.tier-card h4 { color: var(--navy); margin-bottom: 0.25rem; font-size: 0.98rem; }
+.tier-price { font-weight: 800; color: var(--navy2); font-size: 1.1rem; margin-bottom: 0.4rem; }
+.tier-card p { font-size: 0.88rem; color: var(--muted); }
+.process-steps { display: flex; flex-direction: column; gap: 0.7rem; }
+.process-step {
+  display: flex; gap: 0.9rem; align-items: flex-start;
+  background: white; border: 1px solid var(--border); border-radius: 10px; padding: 0.9rem 1rem;
+}
+.process-num {
+  width: 32px; height: 32px; background: var(--navy2); color: white; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 0.85rem; flex-shrink: 0;
+}
+.info-box {
+  background: #eff6ff; border: 1px solid #bfdbfe; border-radius: 12px; padding: 1rem 1.2rem; margin: 1rem 0;
+  font-size: 0.9rem;
+}
+.info-box strong { color: var(--navy); }
+
+/* Auth */
+.auth-wrap {
+  min-height: calc(100vh - 60px); display: flex; align-items: center; justify-content: center;
+  padding: 2rem 1rem; background: linear-gradient(135deg, #f8fafc 0%, #e8eef5 100%);
+}
+.auth-card {
+  background: white; border-radius: 16px; box-shadow: 0 20px 50px rgba(11,28,44,0.1);
+  width: 100%; max-width: 440px; padding: 2.2rem 1.7rem; border: 1px solid var(--border);
+}
+.auth-card h1 { font-family: 'Playfair Display', Georgia, serif; font-size: 1.7rem; color: var(--navy); margin-bottom: 0.3rem; }
+.auth-sub { color: var(--muted); font-size: 0.9rem; margin-bottom: 1.4rem; }
+.form-group { margin-bottom: 1rem; }
+.form-group label { display: block; font-size: 0.84rem; font-weight: 600; color: var(--navy); margin-bottom: 0.3rem; }
+.form-group input, .form-group select, .form-group textarea {
+  width: 100%; padding: 0.7rem 0.9rem; border: 1.5px solid var(--border);
+  border-radius: 9px; font-size: 0.92rem; font-family: inherit; background: #fafbfc;
+}
+.form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+  outline: none; border-color: var(--navy2); background: white;
+}
+.row-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 0.7rem; }
+.error-msg {
+  background: #fef2f2; border: 1px solid #fecaca; color: #b91c1c;
+  padding: 0.6rem 0.85rem; border-radius: 8px; font-size: 0.85rem; margin-bottom: 0.9rem; display: none;
+}
+.switch-text { text-align: center; font-size: 0.88rem; color: var(--muted); margin-top: 1.2rem; }
+.switch-text a { color: var(--navy2); font-weight: 600; cursor: pointer; }
+.pw-hint { font-size: 0.78rem; color: var(--muted); margin-top: 0.25rem; }
+
+.dash-main { max-width: 1100px; margin: 0 auto; padding: 1.6rem 1.2rem 3rem; }
+.user-label { font-size: 0.72rem; letter-spacing: 0.08em; text-transform: uppercase; color: #8b7355; font-weight: 600; }
+.user-name { font-family: 'Playfair Display', Georgia, serif; font-size: 1.9rem; color: var(--navy); }
+.cards-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 0.9rem; margin: 1.3rem 0; }
+.stat-card { background: white; border: 1px solid var(--border); border-radius: 12px; padding: 1rem; }
+.stat-card .label { font-size: 0.78rem; color: var(--muted); }
+.stat-card .value { font-size: 1.1rem; font-weight: 700; color: var(--navy); margin-top: 0.2rem; }
+.panel {
+  background: white; border: 1px solid var(--border); border-radius: 12px; padding: 1.25rem; margin-bottom: 1.2rem;
+}
+.panel-title { font-size: 1rem; font-weight: 600; color: var(--navy); margin-bottom: 0.9rem; }
+
+.table-wrap { overflow-x: auto; }
+table { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
+th {
+  text-align: left; padding: 0.55rem 0.5rem; border-bottom: 1px solid var(--border);
+  color: var(--muted); font-weight: 600; font-size: 0.72rem; text-transform: uppercase;
+}
+td { padding: 0.7rem 0.5rem; border-bottom: 1px solid #f1f5f9; vertical-align: top; }
+.badge { display: inline-block; padding: 0.15rem 0.45rem; border-radius: 4px; font-size: 0.72rem; font-weight: 600; }
+.badge-pending { background: #fef3c7; color: #92400e; }
+
+.footer {
+  background: var(--navy); color: rgba(255,255,255,0.75); padding: 2rem 1.3rem; font-size: 0.85rem;
+}
+.footer a { color: #93c5fd; }
+
+.float-contact {
+  position: fixed; bottom: 20px; right: 20px; z-index: 90;
+  display: flex; flex-direction: column; gap: 8px; align-items: flex-end;
+}
+.float-btn {
+  padding: 0.65rem 1.1rem; border-radius: 50px; font-weight: 600; font-size: 0.85rem;
+  color: white; box-shadow: 0 6px 18px rgba(0,0,0,0.2); border: none; cursor: pointer;
+}
+.float-wa { background: #25D366; }
+.float-call { background: var(--navy2); }
+
+.back-link { color: var(--blue); font-weight: 600; font-size: 0.9rem; margin-bottom: 1rem; display: inline-block; cursor: pointer; }
+.back-link:hover { text-decoration: underline; }
+
+@media (max-width: 700px) {
+  .nav { display: none; }
+  .row-2 { grid-template-columns: 1fr; }
+  .hero h1 { font-size: 1.8rem; }
+}
+
+.rating-banner {
+  display: flex; align-items: center; justify-content: center; gap: 0.75rem; flex-wrap: wrap;
+  background: white; border: 1px solid var(--border); border-radius: 12px;
+  padding: 0.9rem 1.2rem; margin: 0 auto 1.8rem; max-width: 480px;
+}
+.stars { color: #f59e0b; font-size: 1.25rem; letter-spacing: 2px; }
+.rating-text { font-size: 0.92rem; color: var(--text); }
+.rating-text strong { color: var(--navy); }
+.tier-card { cursor: pointer; transition: 0.15s; }
+.tier-card:hover { border-color: var(--blue); box-shadow: 0 4px 14px rgba(30,58,95,0.1); }
+.tier-gallery {
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 0.7rem; margin: 1rem 0;
+}
+.tier-gallery div {
+  height: 110px; border-radius: 10px; background: #e2e8f0 center/cover no-repeat;
+}
+.testimonial-grid {
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 1rem;
+}
+.testimonial-card {
+  background: white; border: 1px solid var(--border); border-radius: 12px; padding: 1.15rem 1.2rem;
+}
+.testimonial-card .stars-sm { color: #f59e0b; font-size: 0.9rem; margin-bottom: 0.4rem; }
+.testimonial-card .quote { font-size: 0.9rem; color: var(--text); margin-bottom: 0.7rem; font-style: italic; }
+.testimonial-card .who { font-size: 0.82rem; font-weight: 600; color: var(--navy); }
+.testimonial-card .where { font-size: 0.78rem; color: var(--muted); }
+
+
+.svc-img, .detail-img, .tier-gallery div {
+  background-color: #e8eef5;
+}
+.tier-gallery div {
+  border: 1px solid #e2e8f0;
+}
+.svc-img img, .detail-img img, .tier-gallery img {
+  background: #e8eef5;
+}
+
+
+
+/* Mobile hamburger */
+.menu-btn {
+  display: none; background: transparent; border: 1px solid rgba(255,255,255,0.3);
+  color: white; padding: 0.4rem 0.7rem; border-radius: 8px; font-size: 1.1rem; cursor: pointer;
+}
+.nav.open { display: flex !important; flex-direction: column; position: absolute; top: 56px; right: 12px;
+  background: var(--navy); padding: 0.8rem; border-radius: 12px; border: 1px solid rgba(255,255,255,0.15);
+  box-shadow: 0 12px 30px rgba(0,0,0,0.3); z-index: 200; min-width: 180px; }
+@media (max-width: 700px) {
+  .menu-btn { display: block; }
+  .nav { display: none; }
+  .nav.open { display: flex !important; }
+}
+/* How it works */
+.steps-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 1rem; margin-top: 1.5rem; }
+.step-card { background: white; border: 1px solid var(--border); border-radius: 12px; padding: 1.2rem; text-align: center; }
+.step-card .num { width: 40px; height: 40px; margin: 0 auto 0.7rem; background: var(--navy2); color: white;
+  border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; }
+/* Before after */
+.ba-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.2rem; }
+.ba-card { background: white; border: 1px solid var(--border); border-radius: 14px; overflow: hidden; }
+.ba-pair { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; }
+.ba-pair img { width: 100%; height: 140px; object-fit: cover; background: #1e3a5f; }
+.ba-labels { display: grid; grid-template-columns: 1fr 1fr; font-size: 0.72rem; text-align: center;
+  background: #f1f5f9; color: var(--muted); padding: 0.3rem; font-weight: 600; }
+.ba-body { padding: 0.9rem 1rem; }
+.ba-body h4 { color: var(--navy); font-size: 0.95rem; margin-bottom: 0.25rem; }
+/* Providers */
+.prov-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 1rem; }
+.prov-card { background: white; border: 1px solid var(--border); border-radius: 12px; padding: 1.2rem; }
+.prov-card h4 { color: var(--navy); margin-bottom: 0.3rem; }
+.prov-card .meta { font-size: 0.82rem; color: var(--muted); margin-bottom: 0.6rem; }
+/* FAQ */
+.faq-item { background: white; border: 1px solid var(--border); border-radius: 10px; margin-bottom: 0.6rem; overflow: hidden; }
+.faq-q { padding: 0.9rem 1.1rem; font-weight: 600; color: var(--navy); cursor: pointer; display: flex; justify-content: space-between; }
+.faq-a { display: none; padding: 0 1.1rem 0.9rem; font-size: 0.9rem; color: var(--muted); }
+.faq-item.open .faq-a { display: block; }
+/* Compare table */
+.compare-wrap { overflow-x: auto; }
+.compare-table { width: 100%; border-collapse: collapse; font-size: 0.88rem; background: white; border-radius: 12px; overflow: hidden; }
+.compare-table th, .compare-table td { padding: 0.75rem 0.9rem; border-bottom: 1px solid var(--border); text-align: left; }
+.compare-table th { background: var(--navy); color: white; font-weight: 600; }
+/* Lang */
+.lang-btn { font-size: 0.75rem !important; padding: 0.3rem 0.6rem !important; }
+.admin-note { width: 100%; min-height: 50px; font-size: 0.8rem; padding: 0.4rem; border: 1px solid var(--border); border-radius: 6px; font-family: inherit; }
+.status-select { font-size: 0.78rem; padding: 0.25rem 0.4rem; border-radius: 6px; border: 1px solid var(--border); }
+
+
+/* Accessibility */
+body.a11y-large { font-size: 112%; }
+body.a11y-large .hero h1, body.a11y-large .section-title, body.a11y-large .user-name { font-size: 1.15em; }
+body.a11y-large .btn { padding: 0.85rem 1.4rem; }
+:focus-visible { outline: 3px solid #3b82f6 !important; outline-offset: 2px; }
+a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible {
+  outline: 3px solid #3b82f6 !important; outline-offset: 2px;
+}
+.a11y-bar {
+  position: fixed; bottom: 20px; left: 20px; z-index: 95;
+  display: flex; gap: 6px; flex-wrap: wrap;
+}
+.a11y-bar button {
+  background: white; border: 1.5px solid var(--border); color: var(--navy);
+  padding: 0.45rem 0.7rem; border-radius: 8px; font-size: 0.78rem; font-weight: 600;
+  cursor: pointer; box-shadow: 0 4px 12px rgba(0,0,0,0.08); font-family: inherit;
+}
+.a11y-bar button:hover { border-color: var(--blue); }
+.a11y-bar button.active { background: var(--navy2); color: white; border-color: var(--navy2); }
+/* Chat widget */
+.chat-widget {
+  position: fixed; bottom: 90px; right: 20px; z-index: 94;
+}
+.chat-toggle {
+  background: linear-gradient(135deg, #1e3a5f, #3b82f6); color: white;
+  border: none; border-radius: 50px; padding: 0.75rem 1.2rem; font-weight: 600;
+  font-size: 0.9rem; cursor: pointer; box-shadow: 0 8px 24px rgba(30,58,95,0.35);
+  font-family: inherit; display: flex; align-items: center; gap: 0.4rem;
+}
+.chat-panel {
+  display: none; position: absolute; bottom: 56px; right: 0;
+  width: 300px; max-width: calc(100vw - 40px);
+  background: white; border-radius: 14px; border: 1px solid var(--border);
+  box-shadow: 0 16px 40px rgba(0,0,0,0.15); overflow: hidden;
+}
+.chat-panel.open { display: block; }
+.chat-head {
+  background: var(--navy); color: white; padding: 0.85rem 1rem; font-weight: 600; font-size: 0.92rem;
+  display: flex; justify-content: space-between; align-items: center;
+}
+.chat-head button { background: transparent; border: none; color: white; font-size: 1.1rem; cursor: pointer; }
+.chat-body { padding: 1rem; font-size: 0.88rem; color: var(--text); max-height: 220px; }
+.chat-body p { margin-bottom: 0.6rem; color: var(--muted); }
+.chat-actions { padding: 0 1rem 1rem; display: flex; flex-direction: column; gap: 0.5rem; }
+.note-box {
+  background: #fffbeb; border: 1px solid #fde68a; border-radius: 10px;
+  padding: 0.85rem 1rem; font-size: 0.85rem; color: #92400e; margin: 1rem 0;
+}
+.photo-preview {
+  display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 0.5rem;
+}
+.photo-preview img {
+  width: 72px; height: 72px; object-fit: cover; border-radius: 8px; border: 1px solid var(--border);
+}
+
+
+/* External topical photo placeholders: label all portfolio imagery as illustrative, not verified client results. */
+.photo-source-note{font-size:.72rem;color:var(--muted);margin-top:.35rem}
+
+.badge-confirmed { background: #d1fae5; color: #065f46; }
+.badge-done { background: #e0e7ff; color: #3730a3; }
+.status-hint { font-size: 0.78rem; color: var(--muted); margin-top: 0.25rem; }
+.admin-note-client {
+  background: #f0f9ff; border: 1px solid #bae6fd; border-radius: 8px;
+  padding: 0.5rem 0.7rem; margin-top: 0.4rem; font-size: 0.8rem; color: #0c4a6e;
+}
+.admin-alert {
+  background: #fef3c7; border: 1px solid #fbbf24; border-radius: 10px;
+  padding: 0.75rem 1rem; margin-bottom: 1rem; font-weight: 600; color: #92400e;
+  display: none;
+}
+.admin-alert.show { display: block; }
+
+
+.admin-search { width: 100%; max-width: 320px; padding: 0.55rem 0.8rem; border: 1.5px solid var(--border); border-radius: 8px; font-size: 0.9rem; margin-bottom: 0.8rem; }
+.chart-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 0.8rem; margin: 1rem 0; }
+.chart-bar-wrap { background: white; border: 1px solid var(--border); border-radius: 10px; padding: 0.9rem; }
+.chart-bar-wrap .lbl { font-size: 0.75rem; color: var(--muted); }
+.chart-bar-wrap .num { font-size: 1.4rem; font-weight: 800; color: var(--navy); }
+.chart-bar { height: 8px; background: #e2e8f0; border-radius: 4px; margin-top: 0.5rem; overflow: hidden; }
+.chart-bar > span { display: block; height: 100%; background: var(--navy2); border-radius: 4px; }
+.ba-filters { display: flex; flex-wrap: wrap; gap: 0.5rem; justify-content: center; margin-bottom: 1.2rem; }
+.ba-filters button { padding: 0.4rem 0.9rem; border-radius: 999px; border: 1.5px solid var(--border); background: white; cursor: pointer; font-size: 0.82rem; font-weight: 600; font-family: inherit; }
+.ba-filters button.active { background: var(--navy2); color: white; border-color: var(--navy2); }
+.finance-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; }
+.finance-card { background: white; border: 1px solid var(--border); border-radius: 12px; padding: 1.1rem; }
+.map-wrap { border-radius: 14px; overflow: hidden; border: 1px solid var(--border); height: 280px; background: #e2e8f0; }
+.map-wrap iframe { width: 100%; height: 100%; border: 0; }
+.btn-danger { background: #b91c1c; color: white; }
+.btn-danger:hover { background: #991b1b; }
+.blocked-tag { color: #b91c1c; font-size: 0.75rem; font-weight: 700; }
+.toast {
+  position: fixed; top: 70px; left: 50%; transform: translateX(-50%); z-index: 300;
+  background: #065f46; color: white; padding: 0.85rem 1.3rem; border-radius: 10px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.2); display: none; font-weight: 600; font-size: 0.92rem;
+  max-width: 90%;
+}
+.toast.show { display: block; }
+.toast.error { background: #b91c1c; }
+
+
+.admin-actions { display: flex; flex-wrap: wrap; gap: 0.4rem; margin: 0.45rem 0; }
+.admin-actions .btn { cursor: pointer; }
+.btn-confirm { background: #059669; color: white; border: none; }
+.btn-confirm:hover { background: #047857; }
+.btn-review { background: #d97706; color: white; border: none; }
+.msg-box-client {
+  background: #f0fdf4; border: 1px solid #86efac; border-radius: 10px;
+  padding: 0.75rem 1rem; margin-top: 0.5rem; white-space: pre-wrap; word-break: break-word;
+  font-size: 0.88rem; color: #14532d; max-height: none;
+}
+.msg-box-client .msg-label { font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em; color: #166534; margin-bottom: 0.35rem; }
+.status-banner {
+  border-radius: 10px; padding: 0.75rem 1rem; margin: 0.5rem 0; font-size: 0.9rem; font-weight: 600;
+}
+.status-banner.review { background: #fef3c7; color: #92400e; border: 1px solid #fcd34d; }
+.status-banner.confirmed { background: #d1fae5; color: #065f46; border: 1px solid #6ee7b7; }
+.status-banner.done { background: #e0e7ff; color: #3730a3; border: 1px solid #a5b4fc; }
+.admin-note { min-height: 70px; max-height: none; }
+textarea.admin-note { resize: vertical; }
+
+</style>
+</head>
+<body>
+<div id="hiToast" class="toast" role="status"></div>
+
+<!-- LANDING -->
+<div id="page-landing" class="page active">
+  <header class="header">
+    <div class="logo" onclick="showPage('landing')"><div class="logo-icon"><svg class="logo-svg" viewBox="0 0 40 40" width="36" height="36" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+  <defs>
+    <linearGradient id="hiGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1e3a5f"/>
+      <stop offset="100%" stop-color="#3b82f6"/>
+    </linearGradient>
+  </defs>
+  <rect width="40" height="40" rx="10" fill="url(#hiGrad)"/>
+  <!-- stylized hairline / scalp arc -->
+  <path d="M8 26c2.5-8 6.5-12 12-12s9.5 4 12 12" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round"/>
+  <!-- follicle dots -->
+  <circle cx="14" cy="18" r="1.4" fill="#93c5fd"/>
+  <circle cx="20" cy="15.5" r="1.4" fill="#fff"/>
+  <circle cx="26" cy="18" r="1.4" fill="#93c5fd"/>
+  <!-- ink mark under -->
+  <path d="M16 28h8" stroke="#fbbf24" stroke-width="2.2" stroke-linecap="round"/>
+</svg></div> HairInk Solutions</div>
+    <button class="menu-btn" onclick="toggleMenu(this)">☰</button>
+    <nav class="nav">
+      <a onclick="showPage('services-list')">Services</a>
+      <a onclick="showPage('before-after')">Before/After</a>
+      <a onclick="showPage('faq')">FAQ</a>
+      <a onclick="showPage('providers')">Providers</a>
+      <button class="lang-btn" onclick="toggleLang()">EN/ES</button>
+      <button onclick="showPage('login')">Login</button>
+      <button class="btn-reg" onclick="showPage('register')">Create Account</button>
+      <button onclick="showPage('admin-login')">Admin</button>
+    </nav>
+  </header>
+  <section class="hero">
+    <div class="container">
+      <span style="display:inline-block;background:rgba(255,255,255,0.15);padding:0.3rem 0.85rem;border-radius:20px;font-size:0.78rem;font-weight:600;margin-bottom:1rem;">USA · Hair Transplant Problems & Tattoo Solutions</span>
+      <h1>Hair Transplant Problems & Tattoo Solutions — All in One Place</h1>
+      <p>Failed transplant? Looking for SMP, custom tattoos, cover-ups, scar camouflage, or laser removal? Create an account, explore transparent US pricing from lowest to highest, and book with top specialists.</p>
+      <div class="hero-btns">
+        <button class="btn btn-accent btn-lg" onclick="showPage('register')">Create Free Account →</button>
+        <button class="btn" style="background:transparent;border:1.5px solid rgba(255,255,255,0.5);color:white;" onclick="showPage('login')">Login</button>
+        <button class="btn" style="background:transparent;border:1.5px solid rgba(255,255,255,0.5);color:white;" onclick="showPage('services-list')">Browse Services</button>
+      </div>
+      <p style="margin-top:1.4rem;font-size:0.95rem;">📞 <a href="tel:+12032434746" style="color:#fbbf24;font-weight:700;">+1 (203) 243-4746</a></p>
+    </div>
+  </section>
+  <section>
+    <div class="container">
+      <h2 class="section-title">Services (Cheapest → Most Advanced)</h2>
+      <p class="section-desc">Click any service for full details, process, time, and price tiers.</p>
+      <div class="svc-grid" id="landingServices"></div>
+    </div>
+  </section>
+
+  
+  <section style="background:#fff;padding:3rem 1.3rem;">
+    <div class="container">
+      <h2 class="section-title" data-i18n="howTitle">How it works</h2>
+      <p class="section-desc" data-i18n="howDesc">From first question to treatment — simple steps.</p>
+      <div class="steps-row">
+        <div class="step-card"><div class="num">1</div><strong data-i18n="step1t">Create account</strong><p style="font-size:0.85rem;color:var(--muted);margin-top:0.4rem;" data-i18n="step1d">Register with name, phone, and location.</p></div>
+        <div class="step-card"><div class="num">2</div><strong data-i18n="step2t">Explore services</strong><p style="font-size:0.85rem;color:var(--muted);margin-top:0.4rem;" data-i18n="step2d">Compare prices, process, and time for each option.</p></div>
+        <div class="step-card"><div class="num">3</div><strong data-i18n="step3t">Book consult</strong><p style="font-size:0.85rem;color:var(--muted);margin-top:0.4rem;" data-i18n="step3d">Describe your case. We review within 1–2 days.</p></div>
+        <div class="step-card"><div class="num">4</div><strong data-i18n="step4t">Get treated</strong><p style="font-size:0.85rem;color:var(--muted);margin-top:0.4rem;" data-i18n="step4d">Work with a matched specialist for your plan.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section style="padding:3rem 1.3rem;background:#f8fafc;">
+    <div class="container">
+      <h2 class="section-title" data-i18n="cmpTitle">Quick comparison</h2>
+      <p class="section-desc" data-i18n="cmpDesc">Side-by-side view of common options.</p>
+      <div class="compare-wrap">
+        <table class="compare-table">
+          <thead><tr><th>Option</th><th>Best for</th><th>Typical US cost</th><th>Time</th><th>Invasive?</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Free consultation</strong></td><td>Clarity before spending</td><td>Free</td><td>1–2 days reply</td><td>No</td></tr>
+            <tr><td><strong>Tattoo / SMP removal</strong></td><td>Unwanted ink or bad SMP</td><td>$75–$1,000+/session</td><td>Months (multi-session)</td><td>Minimal</td></tr>
+            <tr><td><strong>Scar camouflage</strong></td><td>FUE/FUT scars</td><td>$400–$5,000</td><td>1–2 sessions</td><td>Minimal</td></tr>
+            <tr><td><strong>SMP density / hairline</strong></td><td>Thinning, soft hairline</td><td>$800–$3,500</td><td>2–3 sessions</td><td>Minimal</td></tr>
+            <tr><td><strong>Full SMP</strong></td><td>Advanced hair loss look</td><td>$2,000–$5,500+</td><td>2–4 sessions</td><td>Minimal</td></tr>
+            <tr><td><strong>Transplant revision</strong></td><td>Failed or unnatural HT</td><td>$4,000–$20,000+</td><td>Months to final look</td><td>Surgical</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p style="text-align:center;margin-top:1.2rem;">
+        <button class="btn btn-outline" onclick="showPage('faq')">FAQ</button>
+        <button class="btn btn-outline" onclick="showPage('before-after')">Before & After</button>
+        <button class="btn btn-outline" onclick="showPage('providers')">Providers</button>
+      </p>
+    </div>
+  </section>
+
+  <section style="background:#f0f4f8;padding:2.5rem 1.3rem;">
+    <div class="container">
+      <div class="rating-banner">
+        <span class="stars">★★★★★</span>
+        <span class="rating-text"><strong>5.0</strong> · <strong>300+</strong> positive reviews from clients across the USA</span>
+      </div>
+      <h2 class="section-title">What clients say</h2>
+      <p class="section-desc">Real feedback from people who used HairInk for SMP, scars, removal, and revision guidance.</p>
+      <div class="testimonial-grid" id="landingTestimonials"></div>
+    </div>
+  </section>
+
+
+  <section style="padding:2rem 1.3rem;background:#fffbeb;">
+    <div class="container" style="max-width:720px;margin:0 auto;">
+      <div class="note-box" style="margin:0;">
+        <strong>Insurance &amp; financing:</strong>
+        Scalp micropigmentation, tattoo work, scar camouflage, and most cosmetic transplant revisions are typically <strong>not covered</strong> by health insurance in the USA.
+        Some clinics offer payment plans or third-party financing — ask during your consultation. Always confirm costs in writing before treatment.
+      </div>
+    </div>
+  </section>
+
+  
+  <section style="padding:3rem 1.3rem;background:#f8fafc;">
+    <div class="container">
+      <h2 class="section-title">Financing &amp; payment notes</h2>
+      <p class="section-desc">Cosmetic SMP, tattoo, and scar work are typically not covered by health insurance in the USA.</p>
+      <div class="finance-grid">
+        <div class="finance-card"><h4 style="color:var(--navy);margin-bottom:0.4rem;">Clinic payment plans</h4><p style="font-size:0.88rem;color:var(--muted);">Some providers split cost across sessions. Confirm total price and any fees in writing.</p></div>
+        <div class="finance-card"><h4 style="color:var(--navy);margin-bottom:0.4rem;">Third-party financing</h4><p style="font-size:0.88rem;color:var(--muted);">Options such as medical credit cards may be available through individual clinics. Compare APR and terms.</p></div>
+        <div class="finance-card"><h4 style="color:var(--navy);margin-bottom:0.4rem;">Insurance</h4><p style="font-size:0.88rem;color:var(--muted);">Purely cosmetic procedures are rarely covered. Reconstructive cases may differ — ask your insurer and provider.</p></div>
+      </div>
+    </div>
+  </section>
+  <section style="padding:3rem 1.3rem;background:#fff;">
+    <div class="container">
+      <h2 class="section-title">Service area</h2>
+      <p class="section-desc">National USA guidance portal. Map shows a general US focus — contact us for provider matching in your region.</p>
+      <div class="map-wrap">
+        <iframe title="USA map" loading="lazy" referrerpolicy="no-referrer-when-downgrade"
+          src="https://maps.google.com/maps?q=United%20States&z=4&output=embed"></iframe>
+      </div>
+      <p style="text-align:center;margin-top:0.8rem;font-size:0.9rem;">📞 <a href="tel:+12032434746" style="color:var(--blue);font-weight:700;">+1 (203) 243-4746</a></p>
+    </div>
+  </section>
+
+<div class="footer">
+    <div class="container" style="display:flex;justify-content:space-between;flex-wrap:wrap;gap:1rem;">
+      <div>© 2026 HairInk Solutions</div>
+      <div><a href="tel:+12032434746">+1 (203) 243-4746</a></div>
+    </div>
+  </div>
+</div>
+
+<!-- SERVICES LIST (sorted) -->
+<div id="page-services-list" class="page">
+  <header class="header">
+    <div class="logo" onclick="showPage('landing')"><div class="logo-icon"><svg class="logo-svg" viewBox="0 0 40 40" width="36" height="36" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+  <defs>
+    <linearGradient id="hiGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1e3a5f"/>
+      <stop offset="100%" stop-color="#3b82f6"/>
+    </linearGradient>
+  </defs>
+  <rect width="40" height="40" rx="10" fill="url(#hiGrad)"/>
+  <!-- stylized hairline / scalp arc -->
+  <path d="M8 26c2.5-8 6.5-12 12-12s9.5 4 12 12" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round"/>
+  <!-- follicle dots -->
+  <circle cx="14" cy="18" r="1.4" fill="#93c5fd"/>
+  <circle cx="20" cy="15.5" r="1.4" fill="#fff"/>
+  <circle cx="26" cy="18" r="1.4" fill="#93c5fd"/>
+  <!-- ink mark under -->
+  <path d="M16 28h8" stroke="#fbbf24" stroke-width="2.2" stroke-linecap="round"/>
+</svg></div> HairInk Solutions</div>
+    <nav class="nav">
+      <a onclick="showPage('landing')">Home</a>
+      <button onclick="showPage('login')">Login</button>
+      <button class="btn-reg" onclick="showPage('register')">Create Account</button>
+    </nav>
+  </header>
+  <div class="page-hero">
+    <div class="container">
+      <h1>All Services — Lowest to Highest Price</h1>
+      <p>Click a service to see explanation, process steps, time required, and full pricing tiers.</p>
+    </div>
+  </div>
+  <section>
+    <div class="container">
+      <div class="svc-grid" id="allServices"></div>
+    </div>
+  </section>
+</div>
+
+<!-- SERVICE DETAIL -->
+<div id="page-service-detail" class="page">
+  <header class="header">
+    <div class="logo" onclick="showPage('landing')"><div class="logo-icon"><svg class="logo-svg" viewBox="0 0 40 40" width="36" height="36" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+  <defs>
+    <linearGradient id="hiGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1e3a5f"/>
+      <stop offset="100%" stop-color="#3b82f6"/>
+    </linearGradient>
+  </defs>
+  <rect width="40" height="40" rx="10" fill="url(#hiGrad)"/>
+  <!-- stylized hairline / scalp arc -->
+  <path d="M8 26c2.5-8 6.5-12 12-12s9.5 4 12 12" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round"/>
+  <!-- follicle dots -->
+  <circle cx="14" cy="18" r="1.4" fill="#93c5fd"/>
+  <circle cx="20" cy="15.5" r="1.4" fill="#fff"/>
+  <circle cx="26" cy="18" r="1.4" fill="#93c5fd"/>
+  <!-- ink mark under -->
+  <path d="M16 28h8" stroke="#fbbf24" stroke-width="2.2" stroke-linecap="round"/>
+</svg></div> HairInk Solutions</div>
+    <nav class="nav">
+      <a onclick="showPage('services-list')">All Services</a>
+      <button onclick="goBookFromDetail()">Book This</button>
+      <button onclick="showPage('login')">Login</button>
+    </nav>
+  </header>
+  <div id="serviceDetailContent"></div>
+</div>
+
+
+<!-- TIER DETAIL -->
+<div id="page-tier-detail" class="page">
+  <header class="header">
+    <div class="logo" onclick="showPage('landing')"><div class="logo-icon"><svg class="logo-svg" viewBox="0 0 40 40" width="36" height="36" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+  <defs>
+    <linearGradient id="hiGrad2" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1e3a5f"/>
+      <stop offset="100%" stop-color="#3b82f6"/>
+    </linearGradient>
+  </defs>
+  <rect width="40" height="40" rx="10" fill="url(#hiGrad2)"/>
+  <path d="M8 26c2.5-8 6.5-12 12-12s9.5 4 12 12" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round"/>
+  <circle cx="14" cy="18" r="1.4" fill="#93c5fd"/>
+  <circle cx="20" cy="15.5" r="1.4" fill="#fff"/>
+  <circle cx="26" cy="18" r="1.4" fill="#93c5fd"/>
+  <path d="M16 28h8" stroke="#fbbf24" stroke-width="2.2" stroke-linecap="round"/>
+</svg></div> HairInk Solutions</div>
+    <nav class="nav">
+      <a onclick="showPage('services-list')">Services</a>
+      <button onclick="goBookFromTier()">Book This</button>
+      <button onclick="showPage('login')">Login</button>
+    </nav>
+  </header>
+  <div id="tierDetailContent"></div>
+</div>
+
+
+<!-- FAQ -->
+<div id="page-faq" class="page">
+  <header class="header">
+    <div class="logo" onclick="showPage('landing')"><div class="logo-icon">HI</div> HairInk Solutions</div>
+    <button class="menu-btn" onclick="toggleMenu(this)">☰</button>
+    <nav class="nav">
+      <a onclick="showPage('landing')">Home</a>
+      <a onclick="showPage('services-list')">Services</a>
+      <button onclick="showPage('login')">Login</button>
+    </nav>
+  </header>
+  <div class="page-hero"><div class="container"><h1 data-i18n="faqTitle">Frequently asked questions</h1><p data-i18n="faqSub">Straight answers on cost, pain, sessions, and recovery.</p></div></div>
+  <section><div class="container" style="max-width:720px;" id="faqList"></div></section>
+</div>
+
+<!-- BEFORE AFTER -->
+<div id="page-before-after" class="page">
+  <header class="header">
+    <div class="logo" onclick="showPage('landing')"><div class="logo-icon">HI</div> HairInk Solutions</div>
+    <button class="menu-btn" onclick="toggleMenu(this)">☰</button>
+    <nav class="nav">
+      <a onclick="showPage('landing')">Home</a>
+      <a onclick="showPage('services-list')">Services</a>
+      <button onclick="showPage('login')">Login</button>
+    </nav>
+  </header>
+  <div class="page-hero"><div class="container"><h1 data-i18n="baTitle">Before & After</h1><p data-i18n="baSub">Illustrative topic photos for SMP, scars, removal, and revision guidance; these are not verified before/after client cases. Results vary by individual.</p></div></div>
+  <section><div class="container"><div class="ba-grid" id="baFiltersPlaceholder"></div>
+      <div class="ba-filters" id="baFilters">
+        <button type="button" class="active" onclick="filterBA('all', this)">All</button>
+        <button type="button" onclick="filterBA('SMP', this)">SMP</button>
+        <button type="button" onclick="filterBA('Scar', this)">Scar</button>
+        <button type="button" onclick="filterBA('Tattoo', this)">Tattoo</button>
+        <button type="button" onclick="filterBA('Consultation', this)">Consult</button>
+      </div>
+      <div class="ba-grid" id="baGrid"></div></div></section>
+</div>
+
+<!-- PROVIDERS -->
+<div id="page-providers" class="page">
+  <header class="header">
+    <div class="logo" onclick="showPage('landing')"><div class="logo-icon">HI</div> HairInk Solutions</div>
+    <button class="menu-btn" onclick="toggleMenu(this)">☰</button>
+    <nav class="nav">
+      <a onclick="showPage('landing')">Home</a>
+      <a onclick="showPage('services-list')">Services</a>
+      <button onclick="showPage('login')">Login</button>
+    </nav>
+  </header>
+  <div class="page-hero"><div class="container"><h1 data-i18n="provTitle">Provider directory</h1><p data-i18n="provSub">Example specialists and studios across the USA. Contact us to be matched for your case.</p></div></div>
+  <section><div class="container"><div class="prov-grid" id="provGrid"></div>
+    <p style="margin-top:1.5rem;text-align:center;">Need a match? Call <a href="tel:+12032434746" style="color:var(--blue);font-weight:700;">+1 (203) 243-4746</a> or book in your portal.</p>
+  </div></section>
+</div>
+
+<!-- REGISTER -->
+<div id="page-register" class="page">
+  <header class="header">
+    <div class="logo" onclick="showPage('landing')"><div class="logo-icon"><svg class="logo-svg" viewBox="0 0 40 40" width="36" height="36" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+  <defs>
+    <linearGradient id="hiGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1e3a5f"/>
+      <stop offset="100%" stop-color="#3b82f6"/>
+    </linearGradient>
+  </defs>
+  <rect width="40" height="40" rx="10" fill="url(#hiGrad)"/>
+  <!-- stylized hairline / scalp arc -->
+  <path d="M8 26c2.5-8 6.5-12 12-12s9.5 4 12 12" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round"/>
+  <!-- follicle dots -->
+  <circle cx="14" cy="18" r="1.4" fill="#93c5fd"/>
+  <circle cx="20" cy="15.5" r="1.4" fill="#fff"/>
+  <circle cx="26" cy="18" r="1.4" fill="#93c5fd"/>
+  <!-- ink mark under -->
+  <path d="M16 28h8" stroke="#fbbf24" stroke-width="2.2" stroke-linecap="round"/>
+</svg></div> HairInk Solutions</div>
+    <nav class="nav"><button onclick="showPage('login')">Login</button></nav>
+  </header>
+  <div class="auth-wrap">
+    <div class="auth-card">
+      <h1>Create Account</h1>
+      <p class="auth-sub">Name, phone, country & secure password</p>
+      <div class="error-msg" id="regError"></div>
+      <form onsubmit="handleRegister(event)">
+        <div class="form-group"><label>Full Name *</label><input type="text" id="regName" required placeholder="Your full name"></div>
+        <div class="form-group"><label>Phone Number *</label><input type="tel" id="regPhone" required placeholder="+1 203 243 4746"></div>
+        <div class="form-group">
+          <label>Country *</label>
+          <select id="regCountry" required onchange="toggleState()">
+            <option value="">Select country</option>
+            <option value="United States">United States</option>
+            <option value="Canada">Canada</option>
+            <option value="United Kingdom">United Kingdom</option>
+            <option value="Other">Other</option>
+          </select>
+        </div>
+        <div class="form-group" id="stateGroup" style="display:none;">
+          <label>State (USA) *</label>
+          <select id="regState">
+            <option value="">Select state</option>
+            <option>Alabama</option><option>Alaska</option><option>Arizona</option><option>Arkansas</option>
+            <option>California</option><option>Colorado</option><option>Connecticut</option><option>Delaware</option>
+            <option>Florida</option><option>Georgia</option><option>Hawaii</option><option>Idaho</option>
+            <option>Illinois</option><option>Indiana</option><option>Iowa</option><option>Kansas</option>
+            <option>Kentucky</option><option>Louisiana</option><option>Maine</option><option>Maryland</option>
+            <option>Massachusetts</option><option>Michigan</option><option>Minnesota</option><option>Mississippi</option>
+            <option>Missouri</option><option>Montana</option><option>Nebraska</option><option>Nevada</option>
+            <option>New Hampshire</option><option>New Jersey</option><option>New Mexico</option><option>New York</option>
+            <option>North Carolina</option><option>North Dakota</option><option>Ohio</option><option>Oklahoma</option>
+            <option>Oregon</option><option>Pennsylvania</option><option>Rhode Island</option><option>South Carolina</option>
+            <option>South Dakota</option><option>Tennessee</option><option>Texas</option><option>Utah</option>
+            <option>Vermont</option><option>Virginia</option><option>Washington</option><option>West Virginia</option>
+            <option>Wisconsin</option><option>Wyoming</option><option>District of Columbia</option>
+          </select>
+        </div>
+        <div class="form-group"><label>Email *</label><input type="email" id="regEmail" required placeholder="you@email.com"></div>
+        <div class="form-group">
+          <label>Password *</label>
+          <input type="password" id="regPassword" required placeholder="Create password" minlength="8">
+          <p class="pw-hint">Letters + numbers + special character (e.g. !@#$%), min 8 characters</p>
+        </div>
+        <div class="form-group"><label>Confirm Password *</label><input type="password" id="regConfirm" required placeholder="Confirm password"></div>
+        <button type="submit" class="btn btn-primary btn-block btn-lg">Create Account →</button>
+      </form>
+      <p class="switch-text">Already have an account? <a onclick="showPage('login')">Login</a></p>
+    </div>
+  </div>
+</div>
+
+<!-- LOGIN -->
+<div id="page-login" class="page">
+  <header class="header">
+    <div class="logo" onclick="showPage('landing')"><div class="logo-icon"><svg class="logo-svg" viewBox="0 0 40 40" width="36" height="36" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+  <defs>
+    <linearGradient id="hiGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1e3a5f"/>
+      <stop offset="100%" stop-color="#3b82f6"/>
+    </linearGradient>
+  </defs>
+  <rect width="40" height="40" rx="10" fill="url(#hiGrad)"/>
+  <!-- stylized hairline / scalp arc -->
+  <path d="M8 26c2.5-8 6.5-12 12-12s9.5 4 12 12" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round"/>
+  <!-- follicle dots -->
+  <circle cx="14" cy="18" r="1.4" fill="#93c5fd"/>
+  <circle cx="20" cy="15.5" r="1.4" fill="#fff"/>
+  <circle cx="26" cy="18" r="1.4" fill="#93c5fd"/>
+  <!-- ink mark under -->
+  <path d="M16 28h8" stroke="#fbbf24" stroke-width="2.2" stroke-linecap="round"/>
+</svg></div> HairInk Solutions</div>
+    <nav class="nav"><button onclick="showPage('register')">Register</button></nav>
+  </header>
+  <div class="auth-wrap">
+    <div class="auth-card">
+      <h1>Member Login</h1>
+      <p class="auth-sub">Access services, profile & book appointments</p>
+      <div class="error-msg" id="loginError"></div>
+      <form onsubmit="handleLogin(event)">
+        <div class="form-group"><label>Email</label><input type="email" id="loginEmail" required placeholder="you@email.com"></div>
+        <div class="form-group"><label>Password</label><input type="password" id="loginPassword" required placeholder="Your password"></div>
+        <button type="submit" class="btn btn-primary btn-block btn-lg">Login →</button>
+      </form>
+      <p class="switch-text"><a onclick="showPage('reset')">Forgot password?</a></p><p class="switch-text">No account? <a onclick="showPage('register')">Create one</a></p>
+    </div>
+  </div>
+</div>
+
+<!-- MEMBER DASHBOARD -->
+<div id="page-dashboard" class="page">
+  <header class="header">
+    <div class="logo" onclick="showPage('dashboard')"><div class="logo-icon"><svg class="logo-svg" viewBox="0 0 40 40" width="36" height="36" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+  <defs>
+    <linearGradient id="hiGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1e3a5f"/>
+      <stop offset="100%" stop-color="#3b82f6"/>
+    </linearGradient>
+  </defs>
+  <rect width="40" height="40" rx="10" fill="url(#hiGrad)"/>
+  <!-- stylized hairline / scalp arc -->
+  <path d="M8 26c2.5-8 6.5-12 12-12s9.5 4 12 12" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round"/>
+  <!-- follicle dots -->
+  <circle cx="14" cy="18" r="1.4" fill="#93c5fd"/>
+  <circle cx="20" cy="15.5" r="1.4" fill="#fff"/>
+  <circle cx="26" cy="18" r="1.4" fill="#93c5fd"/>
+  <!-- ink mark under -->
+  <path d="M16 28h8" stroke="#fbbf24" stroke-width="2.2" stroke-linecap="round"/>
+</svg></div> HairInk Solutions</div>
+    <nav class="nav">
+      <button onclick="showPage('dashboard')">Portal</button>
+      <button onclick="showPage('profile')">My Profile</button>
+      <button onclick="showPage('services-list')">Services</button>
+      <button onclick="logout()">Logout</button>
+    </nav>
+  </header>
+  <div class="dash-main">
+    <div class="user-label">MEMBER PORTAL</div>
+    <h1 class="user-name" id="dashName">Member</h1>
+    <p style="color:var(--muted);font-size:0.9rem;" id="dashMeta"></p>
+    <div class="cards-row">
+      <div class="stat-card"><div class="label">Phone</div><div class="value" id="dashPhone" style="font-size:0.95rem;">—</div></div>
+      <div class="stat-card"><div class="label">Location</div><div class="value" id="dashLocation" style="font-size:0.95rem;">—</div></div>
+      <div class="stat-card"><div class="label">Appointments</div><div class="value" id="dashAppts">0</div></div>
+      <div class="stat-card"><div class="label">Profile</div><div class="value"><button class="btn btn-outline btn-sm" onclick="showPage('profile')">View Profile</button></div></div>
+    </div>
+
+    <div class="panel">
+      <div class="panel-title">📋 Services (click for full details — cheapest first)</div>
+      <div class="svc-grid" id="dashServices"></div>
+    </div>
+
+    <div class="panel">
+      <div class="panel-title">📅 Book an Appointment</div>
+      <div class="note-box" id="insuranceNoteBook">
+        <strong>Note:</strong> These services are usually cosmetic and not covered by insurance. Ask about financing at consult.
+      </div>
+      <form id="bookForm" action="https://formspree.io/f/xpwzgkqy" method="POST" onsubmit="return handleBook(event)">
+        <input type="hidden" name="_subject" value="HairInk booking request">
+        <input type="hidden" name="member_email" id="bookMemberEmail">
+        <input type="hidden" name="member_name" id="bookMemberName">
+        <input type="hidden" name="member_phone" id="bookMemberPhone">
+        <div class="row-2">
+          <div class="form-group">
+            <label>Service *</label>
+            <select id="bookService" required>
+              <option value="">Select service</option>
+            </select>
+          </div>
+          <div class="form-group"><label>Preferred date</label><input type="date" id="bookDate"></div>
+        </div>
+        <div class="form-group">
+          <label>Describe your problem / goals *</label>
+          <textarea id="bookProblem" required rows="3" name="problem" placeholder="e.g. Failed FUT, visible strip scar, want SMP density..."></textarea>
+        </div>
+        <div class="form-group">
+          <label>Photos (optional)</label>
+          <input type="file" id="bookPhotos" accept="image/*" multiple style="font-size:0.88rem;">
+          <p class="pw-hint">Up to 5 images of scalp, scars, or tattoos. Stored with your booking in this browser for admin review.</p>
+          <div class="photo-preview" id="photoPreview"></div>
+        </div>
+        <button type="submit" class="btn btn-accent">Submit Booking Request</button>
+      </form>
+      <div id="bookSuccess" style="display:none;margin-top:1rem;padding:0.8rem;background:#ecfdf5;border-radius:8px;color:#065f46;">
+        ✓ Booking submitted. Admin can see your case. We will contact you.
+      </div>
+    </div>
+
+    <div class="panel">
+      <div class="panel-title">Your Booking History</div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Date</th><th>Service</th><th>Problem</th><th>Status</th></tr></thead>
+          <tbody id="memberBookings"><tr><td colspan="4" style="color:#9ca3af;text-align:center;">No bookings yet</td></tr></tbody>
+        </table>
+      </div>
+
+      <div class="panel" id="dashMapPanel" style="margin-top:1rem;">
+        <div class="panel-title">Service area</div>
+        <p style="font-size:0.88rem;color:var(--muted);margin-bottom:0.7rem;">National USA guidance — contact us for matching in your region.</p>
+        <div class="map-wrap">
+          <iframe title="USA map" loading="lazy" referrerpolicy="no-referrer-when-downgrade"
+            src="https://maps.google.com/maps?q=United%20States&z=4&output=embed"></iframe>
+        </div>
+        <p style="margin-top:0.6rem;font-size:0.9rem;">📞 <a href="tel:+12032434746" style="color:var(--blue);font-weight:700;">+1 (203) 243-4746</a></p>
+      </div>
+
+    </div>
+
+    <div class="panel">
+      <div class="panel-title">★ Client rating</div>
+      <div class="rating-banner" style="margin:0 0 1rem 0; max-width:100%;">
+        <span class="stars">★★★★★</span>
+        <span class="rating-text"><strong>5.0</strong> average · <strong>300+</strong> positive reviews nationwide</span>
+      </div>
+      <div class="testimonial-grid" id="dashTestimonials"></div>
+    </div>
+
+  </div>
+</div>
+
+<!-- PROFILE -->
+<div id="page-profile" class="page">
+  <header class="header">
+    <div class="logo" onclick="showPage('dashboard')"><div class="logo-icon"><svg class="logo-svg" viewBox="0 0 40 40" width="36" height="36" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+  <defs>
+    <linearGradient id="hiGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1e3a5f"/>
+      <stop offset="100%" stop-color="#3b82f6"/>
+    </linearGradient>
+  </defs>
+  <rect width="40" height="40" rx="10" fill="url(#hiGrad)"/>
+  <!-- stylized hairline / scalp arc -->
+  <path d="M8 26c2.5-8 6.5-12 12-12s9.5 4 12 12" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round"/>
+  <!-- follicle dots -->
+  <circle cx="14" cy="18" r="1.4" fill="#93c5fd"/>
+  <circle cx="20" cy="15.5" r="1.4" fill="#fff"/>
+  <circle cx="26" cy="18" r="1.4" fill="#93c5fd"/>
+  <!-- ink mark under -->
+  <path d="M16 28h8" stroke="#fbbf24" stroke-width="2.2" stroke-linecap="round"/>
+</svg></div> HairInk Solutions</div>
+    <nav class="nav">
+      <button onclick="showPage('dashboard')">Portal</button>
+      <button onclick="logout()">Logout</button>
+    </nav>
+  </header>
+  <div class="dash-main">
+    <div class="user-label">MY PROFILE</div>
+    <h1 class="user-name">Account Details</h1>
+    <div class="panel" style="max-width:520px;margin-top:1.2rem;">
+      <div class="form-group"><label>Full Name</label><div id="profName" style="font-weight:600;color:var(--navy);">—</div></div>
+      <div class="form-group"><label>Email</label><div id="profEmail">—</div></div>
+      <div class="form-group"><label>Phone</label><div id="profPhone">—</div></div>
+      <div class="form-group"><label>Country</label><div id="profCountry">—</div></div>
+      <div class="form-group"><label>State</label><div id="profState">—</div></div>
+      <div class="form-group">
+        <label>Password</label>
+        <div style="display:flex;align-items:center;gap:0.8rem;">
+          <span id="profPw" style="font-family:monospace;">••••••••</span>
+          <button class="btn btn-outline btn-sm" type="button" onclick="toggleProfPw()">Show / Hide</button>
+        </div>
+      </div>
+      <div class="form-group"><label>Member since</label><div id="profJoined">—</div></div>
+      <button class="btn btn-primary" onclick="showPage('dashboard')" style="margin-top:0.5rem;">← Back to Portal</button>
+    </div>
+  </div>
+</div>
+
+
+<!-- RESET PASSWORD -->
+<div id="page-reset" class="page">
+  <header class="header">
+    <div class="logo" onclick="showPage('landing')"><div class="logo-icon">HI</div> HairInk Solutions</div>
+  </header>
+  <div class="auth-wrap">
+    <div class="auth-card">
+      <h1>Reset password</h1>
+      <p class="auth-sub">Enter the email on your account. Demo: password is updated in this browser only.</p>
+      <div class="error-msg" id="resetError"></div>
+      <div class="success-msg" id="resetSuccess" style="display:none;background:#ecfdf5;border:1px solid #a7f3d0;color:#065f46;padding:0.6rem 0.85rem;border-radius:8px;font-size:0.85rem;margin-bottom:0.9rem;"></div>
+      <form onsubmit="handleReset(event)">
+        <div class="form-group"><label>Email</label><input type="email" id="resetEmail" required></div>
+        <div class="form-group"><label>New password</label><input type="password" id="resetPw" required minlength="8"><p class="pw-hint">Letters + numbers + special character</p></div>
+        <div class="form-group"><label>Confirm new password</label><input type="password" id="resetPw2" required></div>
+        <button type="submit" class="btn btn-primary btn-block btn-lg">Update password</button>
+      </form>
+      <p class="switch-text"><a onclick="showPage('login')">← Back to login</a></p>
+    </div>
+  </div>
+</div>
+
+<!-- ADMIN LOGIN -->
+<div id="page-admin-login" class="page">
+  <header class="header">
+    <div class="logo" onclick="showPage('landing')"><div class="logo-icon"><svg class="logo-svg" viewBox="0 0 40 40" width="36" height="36" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+  <defs>
+    <linearGradient id="hiGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1e3a5f"/>
+      <stop offset="100%" stop-color="#3b82f6"/>
+    </linearGradient>
+  </defs>
+  <rect width="40" height="40" rx="10" fill="url(#hiGrad)"/>
+  <!-- stylized hairline / scalp arc -->
+  <path d="M8 26c2.5-8 6.5-12 12-12s9.5 4 12 12" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round"/>
+  <!-- follicle dots -->
+  <circle cx="14" cy="18" r="1.4" fill="#93c5fd"/>
+  <circle cx="20" cy="15.5" r="1.4" fill="#fff"/>
+  <circle cx="26" cy="18" r="1.4" fill="#93c5fd"/>
+  <!-- ink mark under -->
+  <path d="M16 28h8" stroke="#fbbf24" stroke-width="2.2" stroke-linecap="round"/>
+</svg></div> HairInk Solutions</div>
+  </header>
+  <div class="auth-wrap">
+    <div class="auth-card">
+      <h1>Admin Login</h1>
+      <p class="auth-sub">Manage members & view cases</p>
+      <div class="error-msg" id="adminError"></div>
+      <form onsubmit="handleAdminLogin(event)">
+        <div class="form-group"><label>Admin email</label><input type="email" id="adminEmail" required placeholder="admin@hairink.com"></div>
+        <div class="form-group"><label>Password</label><input type="password" id="adminPassword" required></div>
+        <button type="submit" class="btn btn-primary btn-block btn-lg">Enter Admin Panel →</button>
+      </form>
+      
+      <p class="switch-text"><a onclick="showPage('landing')">← Back</a></p>
+    </div>
+  </div>
+</div>
+
+<!-- ADMIN PANEL -->
+<div id="page-admin" class="page">
+  <header class="header">
+    <div class="logo" onclick="showPage('landing')"><div class="logo-icon"><svg class="logo-svg" viewBox="0 0 40 40" width="36" height="36" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+  <defs>
+    <linearGradient id="hiGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1e3a5f"/>
+      <stop offset="100%" stop-color="#3b82f6"/>
+    </linearGradient>
+  </defs>
+  <rect width="40" height="40" rx="10" fill="url(#hiGrad)"/>
+  <!-- stylized hairline / scalp arc -->
+  <path d="M8 26c2.5-8 6.5-12 12-12s9.5 4 12 12" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round"/>
+  <!-- follicle dots -->
+  <circle cx="14" cy="18" r="1.4" fill="#93c5fd"/>
+  <circle cx="20" cy="15.5" r="1.4" fill="#fff"/>
+  <circle cx="26" cy="18" r="1.4" fill="#93c5fd"/>
+  <!-- ink mark under -->
+  <path d="M16 28h8" stroke="#fbbf24" stroke-width="2.2" stroke-linecap="round"/>
+</svg></div> HairInk Solutions</div>
+    <nav class="nav">
+      <button class="btn-reg">Admin</button>
+      <button onclick="adminLogout()">Logout</button>
+    </nav>
+  </header>
+  <div class="dash-main">
+    <div class="user-label">🛡️ ADMIN PANEL · Auto-refresh every 10s</div>
+    <h1 class="user-name" style="font-size:1.6rem;">Members & Cases</h1>
+    <div class="cards-row">
+      <div class="stat-card"><div class="label">Total members</div><div class="value" id="adminTotal">0</div></div>
+      <div class="stat-card"><div class="label">With bookings</div><div class="value" id="adminBooked">0</div></div>
+      <div class="stat-card"><div class="label">Pending</div><div class="value" id="adminPending">0</div></div>
+    </div>
+    <div class="panel">
+      <div class="panel-title" style="display:flex;justify-content:space-between;align-items:center;">
+        <span>All Members</span>
+        <span>
+        <button class="btn btn-outline btn-sm" onclick="loadAdmin()">Refresh now</button>
+        <button class="btn btn-outline btn-sm" onclick="exportMembersCSV()">Export CSV</button>
+      </span>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr><th>Name / Email</th><th>Phone</th><th>Location</th><th>Password</th><th>Problem / Bookings</th><th>Joined</th></tr>
+          </thead>
+          <tbody id="adminBody"><tr><td colspan="6" style="text-align:center;color:#9ca3af;">Loading…</td></tr></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="float-contact">
+  <a href="https://wa.me/12032434746?text=Hi%20HairInk%2C%20I%20want%20help%20with%20hair%20transplant%20or%20tattoo%20services." target="_blank" class="float-btn float-wa">💬 WhatsApp</a>
+  <a href="tel:+12032434746" class="float-btn float-call">📞 Call</a>
+</div>
+
+<script>
+// ===== SERVICES: cheapest first (sortKey = approximate low end USD) =====
+const SERVICES = [
+  {
+    "id": "consult",
+    "name": "Free Consultation & Digital Analysis",
+    "sortKey": 0,
+    "priceLabel": "Free",
+    "tag": "Start here",
+    "img": "https://mma.prnewswire.com/media/2741298/Removery.jpg?p=twitter",
+    "short": "Complimentary second opinion, photo evaluation, and customized treatment blueprint. No obligation.",
+    "explanation": "A thorough, no-pressure preliminary evaluation of your hair loss, previous transplant results, donor area density, or tattoo removal/cover-up goals. Submit photos or speak directly with our clinical and tattoo specialists to get realistic options, session counts, and transparent pricing before committing.",
+    "time": "Detailed response within 24 hours. Phone/SMS direct line: +1 (203) 243-4746.",
+    "process": [
+      "Submit your case details, medical/tattoo history, and goals via the booking form.",
+      "A senior specialist reviews your case notes and any uploaded reference photos.",
+      "Receive a written recommendation: SMP, laser removal, custom ink, cover-up, or surgical revision.",
+      "Review transparent session timelines and verified US price ranges.",
+      "Schedule your in-clinic procedure or speak directly with our clinical team."
+    ],
+    "tiers": [
+      {
+        "name": "Digital Case & Photo Evaluation",
+        "price": "Free",
+        "desc": "Submit details and photos online for a custom procedure plan within 24 hours.",
+        "img": "https://static.wixstatic.com/media/29e0f0_94171cc7f7d64682b830694fb84ae977~mv2.jpg/v1/fill/w_640%2Ch_390%2Cal_b%2Cq_80%2Cusm_0.66_1.00_0.01%2Cenc_avif%2Cquality_auto/29e0f0_94171cc7f7d64682b830694fb84ae977~mv2.jpg"
+      },
+      {
+        "name": "Live Specialist Call / In-Clinic Review",
+        "price": "Free",
+        "desc": "One-on-one virtual or direct phone consultation with our lead practitioner at +1 (203) 243-4746.",
+        "img": "https://www.cliniquetricopigmentationparis.com/wp-content/uploads/2024/03/consultation-tricopigmentation.jpg"
+      }
+    ]
+  },
+  {
+    "id": "removal-small",
+    "name": "Laser Tattoo & SMP Removal",
+    "sortKey": 75,
+    "priceLabel": "From $75 / session",
+    "tag": "Laser Removal",
+    "img": "https://mma.prnewswire.com/media/2741298/Removery.jpg?p=twitter",
+    "short": "State-of-the-art Pico & Q-Switch laser removal for unwanted body tattoos or botched, oversaturated scalp pigmentation.",
+    "explanation": "Our medical-grade laser systems deliver ultra-short picosecond pulses that shatter tattoo and SMP pigments into microscopic dust that your body naturally flushes away. Safe for all skin tones, minimizing thermal trauma, and ideal for complete removal or pre-cover-up lightening.",
+    "time": "10\u201345 minutes per session. Full removal typically requires 4\u20138 sessions spaced 6\u20138 weeks apart.",
+    "process": [
+      "Clinical assessment of ink depth, pigment colors, and skin sensitivity.",
+      "Application of topical medical numbing and localized cryo-cooling for comfort.",
+      "Precision laser wavelength pass targeting the specific pigment layers.",
+      "Immediate post-laser cooling, antimicrobial balm application, and sterile dressing.",
+      "Healing period of 6\u20138 weeks between sessions as the immune system clears shattered ink."
+    ],
+    "tiers": [
+      {
+        "name": "Extra-Small / Initials / Finger Tattoo",
+        "price": "$75 \u2013 $150 / session",
+        "desc": "Under 2 sq in. Quick 10-minute session. Typically 4\u20136 sessions for complete fade.",
+        "img": "https://images.pexels.com/photos/4123911/pexels-photo-4123911.jpeg?auto=compress&cs=tinysrgb&w=900"
+      },
+      {
+        "name": "Small Tattoo (2\u20134 inches)",
+        "price": "$150 \u2013 $300 / session",
+        "desc": "Wrist, ankle, or chest pieces. Typically 5\u20137 sessions for complete clearance.",
+        "img": "https://images.pexels.com/photos/1311518/pexels-photo-1311518.jpeg?auto=compress&cs=tinysrgb&w=900"
+      },
+      {
+        "name": "Botched SMP Fading & Correction",
+        "price": "$150 \u2013 $350 / session",
+        "desc": "Targeted lightening of migrated, discolored, or helmet-like scalp micropigmentation.",
+        "img": "https://cdn.outrank.so/85243a66-71e9-4040-bc52-e7849341bd13/87c367ce-b434-490b-b378-7fde63da66d7.jpg"
+      },
+      {
+        "name": "Medium Body Tattoo (Palm-Sized)",
+        "price": "$250 \u2013 $500 / session",
+        "desc": "Bicep, forearm, calf, or shoulder design. Multi-pass pigment breakdown.",
+        "img": "https://static.wixstatic.com/media/29e0f0_94171cc7f7d64682b830694fb84ae977~mv2.jpg/v1/fill/w_640%2Ch_390%2Cal_b%2Cq_80%2Cusm_0.66_1.00_0.01%2Cenc_avif%2Cquality_auto/29e0f0_94171cc7f7d64682b830694fb84ae977~mv2.jpg"
+      },
+      {
+        "name": "Large Piece / Full Sleeve Lightening",
+        "price": "$500 \u2013 $1,000+ / session",
+        "desc": "Extensive multi-color coverage or dense blackwork preparing for cover-up art.",
+        "img": "https://leaderssmp.com/wp-content/uploads/2024/12/Leaders-SMP-Clinic-scalp-micropigmentation-smp-16-.jpeg.webp"
+      }
+    ]
+  },
+  {
+    "id": "custom-tattoo",
+    "name": "Custom Tattoo Art & Body Ink",
+    "sortKey": 100,
+    "priceLabel": "$100 \u2013 $1,500+",
+    "tag": "Custom Ink",
+    "img": "https://images.pexels.com/photos/955938/pexels-photo-955938.jpeg?auto=compress&cs=tinysrgb&w=900",
+    "short": "Fine-line, micro-realism, black & grey, and custom illustrative tattoos crafted by licensed master tattoo artists.",
+    "explanation": "From delicate fine-line script and botanical illustrations to bold blackwork and intricate micro-realism, our tattoo studio delivers custom, one-of-a-kind body art. We utilize single-use sterilized cartridge needles, hospital-grade hygiene protocols, and premium carbon pigments designed to age gracefully.",
+    "time": "From 45 minutes for micro-tattoos up to full-day sessions (4\u20138 hours) for large custom projects.",
+    "process": [
+      "Design consultation: discuss concepts, reference imagery, placement, and sizing.",
+      "Custom digital stencil rendering and anatomic placement review on skin.",
+      "Single-use sterile setup in a clean, professional clinical-standard studio.",
+      "Precision needle tattooing with master hand control, shading, and linework.",
+      "Application of breathable SecondSkin protective barrier and complete aftercare package."
+    ],
+    "tiers": [
+      {
+        "name": "Micro / Fine-Line Script / Minimalist",
+        "price": "$100 \u2013 $250",
+        "desc": "Delicate lettering, geometric accents, or fine single-needle designs.",
+        "img": "https://images.pexels.com/photos/26571333/pexels-photo-26571333.jpeg?auto=compress&cs=tinysrgb&w=900"
+      },
+      {
+        "name": "Custom Flash & Medium Piece (3\u20136 in)",
+        "price": "$250 \u2013 $600",
+        "desc": "Original custom design, black & grey shading, or illustrative linework on forearm or calf.",
+        "img": "https://images.pexels.com/photos/1311518/pexels-photo-1311518.jpeg?auto=compress&cs=tinysrgb&w=900"
+      },
+      {
+        "name": "Half-Sleeve / Detailed Custom Project",
+        "price": "$600 \u2013 $1,200",
+        "desc": "Extensive upper arm, forearm, or calf composition with rich textures, depth, and flow.",
+        "img": "https://images.pexels.com/photos/4123911/pexels-photo-4123911.jpeg?auto=compress&cs=tinysrgb&w=900"
+      },
+      {
+        "name": "Full Sleeve / Backpiece Masterwork",
+        "price": "$1,200 \u2013 $2,500+",
+        "desc": "Large-scale full limb or torso project spanning multiple dedicated sittings.",
+        "img": "https://images.pexels.com/photos/955938/pexels-photo-955938.jpeg?auto=compress&cs=tinysrgb&w=900"
+      }
+    ]
+  },
+  {
+    "id": "tattoo-coverup",
+    "name": "Tattoo Cover-Up & Restoration",
+    "sortKey": 250,
+    "priceLabel": "$250 \u2013 $2,500",
+    "tag": "Cover-Up & Rework",
+    "img": "https://images.pexels.com/photos/4123911/pexels-photo-4123911.jpeg?auto=compress&cs=tinysrgb&w=900",
+    "short": "Transform dated, faded, or poorly executed tattoos into breathtaking new custom designs with expert coverage.",
+    "explanation": "Covering an existing tattoo requires specialized technical mastery in optical depth, color theory, and anatomical flow. Rather than creating a muddy black blob, our cover-up specialists strategically align darker design elements over old ink while pulling eyes toward vibrant, new focal highlights. Optional light laser prep available.",
+    "time": "Usually 2\u20136 hours per sitting. Complex cover-ups typically require 1\u20133 sessions.",
+    "process": [
+      "Detailed evaluation of existing tattoo darkness, scarring, and raised line texture.",
+      "Strategic cover-up concept design mapping dark saturation directly over old lines.",
+      "Optional 1\u20132 laser fading sessions if old ink is excessively dense or black.",
+      "Session 1: Line re-routing, initial deep saturation, and foundation coverage.",
+      "Session 2+: Highlighting, contrast depth, and full disguise of previous lines."
+    ],
+    "tiers": [
+      {
+        "name": "Line Refresh & Rework / Detail Re-Ink",
+        "price": "$200 \u2013 $450",
+        "desc": "Resharpen blown-out lines, restore faded colors, and revitalize existing tattoos.",
+        "img": "https://images.pexels.com/photos/26571333/pexels-photo-26571333.jpeg?auto=compress&cs=tinysrgb&w=801"
+      },
+      {
+        "name": "Small Area Cover-Up (Names / Symbols)",
+        "price": "$350 \u2013 $750",
+        "desc": "Complete disguise of old names, tribal symbols, or faded amateur tattoos.",
+        "img": "https://images.pexels.com/photos/1311518/pexels-photo-1311518.jpeg?auto=compress&cs=tinysrgb&w=801"
+      },
+      {
+        "name": "Medium Piece Cover-Up (Forearm / Shoulder)",
+        "price": "$750 \u2013 $1,500",
+        "desc": "Complete transformation using dark illustrative, floral, or blackwork themes.",
+        "img": "https://images.pexels.com/photos/4123911/pexels-photo-4123911.jpeg?auto=compress&cs=tinysrgb&w=801"
+      },
+      {
+        "name": "Large-Scale Blast-Over & Sleeve Redesign",
+        "price": "$1,500 \u2013 $2,800+",
+        "desc": "Total overhaul of heavily tattooed arms or legs into a cohesive modern composition.",
+        "img": "https://images.pexels.com/photos/955938/pexels-photo-955938.jpeg?auto=compress&cs=tinysrgb&w=801"
+      }
+    ]
+  },
+  {
+    "id": "paramedical-tattoo",
+    "name": "Paramedical Tattooing & Skin Camouflage",
+    "sortKey": 350,
+    "priceLabel": "$350 \u2013 $3,000",
+    "tag": "Paramedical",
+    "img": "https://images.unsplash.com/photo-1775135755638-e5172ac4b11b?auto=format&fit=crop&fm=jpg&q=80&w=1200",
+    "short": "Medical-grade skin-tone micropigmentation to disguise surgical scars, stretch marks, hypo-pigmentation, and 3D areola recreation.",
+    "explanation": "Paramedical tattooing blends art and reconstructive medicine. Using custom-blended, medical-grade pigments matched precisely to your natural skin undertones, we camouflage hypopigmented scars from surgeries, accidents, burns, or stretch marks. We also specialize in post-mastectomy 3D nipple-areola restoration with hyper-realistic light and shadow depth.",
+    "time": "1.5\u20133 hours per session. Most treatments require 2\u20133 sessions spaced 4\u20136 weeks apart.",
+    "process": [
+      "Skin and scar texture assessment (scar must be mature, flat, and at least 9\u201312 months old).",
+      "Precise custom pigment formulation matching Fitzpatrick skin tone and undertones under natural lighting.",
+      "Gentle micro-implantation of custom skin-tone pigments into the scar dermal layer.",
+      "Healing cycle of 4\u20136 weeks as the pigment settles and softens into the natural dermis.",
+      "Follow-up perfecting session to balance tone transition and ensure undetectable edges."
+    ],
+    "tiers": [
+      {
+        "name": "Small Surgical Scar (Thyroid, Appendix, C-Section)",
+        "price": "$350 \u2013 $750",
+        "alt": "Close-up illustrative reference for small healed surgical scar camouflage",
+        "desc": "Camouflage linear surgical scars up to 6 inches. 1\u20132 sessions.",
+        "img": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI2NDAiIGhlaWdodD0iNDAwIiB2aWV3Qm94PSIwIDAgNjQwIDQwMCI+CiAgPGRlZnM+PGxpbmVhckdyYWRpZW50IGlkPSJnIiB4MT0iMCIgeTE9IjAiIHgyPSIxIiB5Mj0iMSI+CiAgICA8c3RvcCBvZmZzZXQ9IjAlIiBzdG9wLWNvbG9yPSIjMWUzYTVmIi8+PHN0b3Agb2Zmc2V0PSIxMDAlIiBzdG9wLWNvbG9yPSIjM2I4MmY2Ii8+CiAgPC9saW5lYXJHcmFkaWVudD48L2RlZnM+CiAgPHJlY3Qgd2lkdGg9IjY0MCIgaGVpZ2h0PSI0MDAiIGZpbGw9InVybCgjZykiLz4KICA8ZWxsaXBzZSBjeD0iMzIwIiBjeT0iMTYwIiByeD0iOTAiIHJ5PSI3MCIgZmlsbD0icmdiYSgyNTUsMjU1LDI1NSwwLjEyKSIvPgogIDx0ZXh0IHg9IjMyMCIgeT0iMTc1IiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmaWxsPSIjZmZmIiBmb250LWZhbWlseT0ic3lzdGVtLXVpLHNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iNDIiIGZvbnQtd2VpZ2h0PSI3MDAiPuKXhzwvdGV4dD4KICA8dGV4dCB4PSIzMjAiIHk9IjI3MCIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZmlsbD0iI2ZmZiIgZm9udC1mYW1pbHk9InN5c3RlbS11aSxzYW5zLXNlcmlmIiBmb250LXNpemU9IjI2IiBmb250LXdlaWdodD0iNzAwIj5TdXJnaWNhbCBTY2FyIENhbW91ZmxhZ2U8L3RleHQ+CiAgPHRleHQgeD0iMzIwIiB5PSIzMDUiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZpbGw9InJnYmEoMjU1LDI1NSwyNTUsMC44NSkiIGZvbnQtZmFtaWx5PSJzeXN0ZW0tdWksc2Fucy1zZXJpZiIgZm9udC1zaXplPSIxNCI+UGFyYW1lZGljYWwgwrcgSGFpckluazwvdGV4dD4KPC9zdmc+"
+      },
+      {
+        "name": "Stretch Mark Camouflage (Per Zone)",
+        "price": "$600 \u2013 $1,400",
+        "alt": "Illustrative skin reference for stretch mark camouflage",
+        "desc": "Blend white/hypopigmented stretch marks on hips, thighs, abdomen, or arms.",
+        "img": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI2NDAiIGhlaWdodD0iNDAwIiB2aWV3Qm94PSIwIDAgNjQwIDQwMCI+CiAgPGRlZnM+PGxpbmVhckdyYWRpZW50IGlkPSJnIiB4MT0iMCIgeTE9IjAiIHgyPSIxIiB5Mj0iMSI+CiAgICA8c3RvcCBvZmZzZXQ9IjAlIiBzdG9wLWNvbG9yPSIjN2MyZDEyIi8+PHN0b3Agb2Zmc2V0PSIxMDAlIiBzdG9wLWNvbG9yPSIjYzI0MTBjIi8+CiAgPC9saW5lYXJHcmFkaWVudD48L2RlZnM+CiAgPHJlY3Qgd2lkdGg9IjY0MCIgaGVpZ2h0PSI0MDAiIGZpbGw9InVybCgjZykiLz4KICA8ZWxsaXBzZSBjeD0iMzIwIiBjeT0iMTYwIiByeD0iOTAiIHJ5PSI3MCIgZmlsbD0icmdiYSgyNTUsMjU1LDI1NSwwLjEyKSIvPgogIDx0ZXh0IHg9IjMyMCIgeT0iMTc1IiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmaWxsPSIjZmZmIiBmb250LWZhbWlseT0ic3lzdGVtLXVpLHNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iNDIiIGZvbnQtd2VpZ2h0PSI3MDAiPuKXhzwvdGV4dD4KICA8dGV4dCB4PSIzMjAiIHk9IjI3MCIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZmlsbD0iI2ZmZiIgZm9udC1mYW1pbHk9InN5c3RlbS11aSxzYW5zLXNlcmlmIiBmb250LXNpemU9IjI2IiBmb250LXdlaWdodD0iNzAwIj5TdHJldGNoIE1hcmsgQ2Ftb3VmbGFnZTwvdGV4dD4KICA8dGV4dCB4PSIzMjAiIHk9IjMwNSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZmlsbD0icmdiYSgyNTUsMjU1LDI1NSwwLjg1KSIgZm9udC1mYW1pbHk9InN5c3RlbS11aSxzYW5zLXNlcmlmIiBmb250LXNpemU9IjE0Ij5QYXJhbWVkaWNhbCDCtyBIYWlySW5rPC90ZXh0Pgo8L3N2Zz4="
+      },
+      {
+        "name": "3D Nipple-Areola Restoration (Unilateral / Bilateral)",
+        "price": "$800 \u2013 $1,800",
+        "alt": "Clinical illustrative reference for 3D areola restoration",
+        "desc": "Hyper-realistic 3D restorative tattooing for post-mastectomy breast reconstruction.",
+        "img": "https://images.pexels.com/photos/4123914/pexels-photo-4123914.jpeg?auto=compress&cs=tinysrgb&w=801"
+      },
+      {
+        "name": "Extensive Surgical / Trauma / Burn Scars",
+        "price": "$1,500 \u2013 $3,000",
+        "desc": "Complex multi-quadrant scar camouflage and multi-session skin tone restoration.",
+        "img": "https://images.pexels.com/photos/4123909/pexels-photo-4123909.jpeg?auto=compress&cs=tinysrgb&w=801"
+      }
+    ]
+  },
+  {
+    "id": "scar",
+    "name": "Hair Transplant Scar Camouflage (FUE / FUT)",
+    "sortKey": 400,
+    "priceLabel": "$400 \u2013 $5,000",
+    "tag": "Transplant Scars",
+    "img": "https://static.wixstatic.com/media/620b58_c8cf22ea96c946bfab79747e44a49844~mv2.png/v1/fill/w_836%2Ch_822%2Cal_c/620b58_c8cf22ea96c946bfab79747e44a49844~mv2.png",
+    "short": "Blend visible surgical donor scars (FUE moth-eaten dots & FUT linear strip scars) into natural surrounding hair stubble.",
+    "explanation": "Nothing undermines a hair restoration faster than exposed surgical donor scars when hair is cut short. Our specialized scar camouflage SMP implants microscopic pigment impressions into and around scar tissue, matching your natural hair follicle diameter and color to make scars virtually undetectable even with close buzz-cuts.",
+    "time": "1\u20132 hours per session. Typically 2\u20133 sessions spaced 2\u20134 weeks apart.",
+    "process": [
+      "Scar analysis: measure tissue density, keloid formation, and surrounding hair follicle caliber.",
+      "Custom carbon charcoal pigment compounding matched to native hair root color.",
+      "Session 1: Establish foundational dot pattern inside white scar tissue without over-saturating.",
+      "2\u20133 weeks healing to observe how the scar tissue retains pigment.",
+      "Session 2\u20133: Feather edges into healthy donor stubble for a smooth, seamless visual transition."
+    ],
+    "tiers": [
+      {
+        "name": "FUE Punch Dot Camouflage (Small Zone)",
+        "price": "$400 \u2013 $800",
+        "desc": "Conceal scattered white punch scars from over-harvested FUE donor zones.",
+        "img": "https://images.squarespace-cdn.com/content/v1/5e9a04caec68282d2e92a69b/1587743326872-UGXLC7Z2UMBYJU9KKLI2/scar-camouflage-oklahoma-city-okc-3.jpg"
+      },
+      {
+        "name": "Moderate FUE Zone or Partial Donor Strip",
+        "price": "$800 \u2013 $1,500",
+        "desc": "Medium donor zone concealment across the back and sides of the head.",
+        "img": "https://www.microhairclinic.si/_next/image?q=80&url=%2Foptimized%2FIMG_9102-min.webp&w=3840"
+      },
+      {
+        "name": "Full FUT Linear Strip Scar (Ear to Ear)",
+        "price": "$1,500 \u2013 $2,500",
+        "desc": "Complete camouflage of wide or uneven strip scars across the occipital scalp.",
+        "img": "https://cdn.outrank.so/85243a66-71e9-4040-bc52-e7849341bd13/87c367ce-b434-490b-b378-7fde63da66d7.jpg"
+      },
+      {
+        "name": "Complex / Multi-Procedure Donor Revision",
+        "price": "$2,500 \u2013 $5,000",
+        "desc": "Extensive repair for patients with multiple past surgeries, wide scarring, or depleted donor areas.",
+        "img": "https://res.cloudinary.com/wavy/image/upload/f_auto%2Cq_auto%2Cw_800%2Ch_780%2Cc_fill%2Cg_north/v1711012686/tw-tricopigmentation-paris-neuilly-sur-seine-photo-14d1c47e------.jpg"
+      }
+    ]
+  },
+  {
+    "id": "smp-partial",
+    "name": "SMP Hairline & Density Restoration",
+    "sortKey": 800,
+    "priceLabel": "$800 \u2013 $3,500",
+    "tag": "SMP Density",
+    "img": "https://cdn.outrank.so/85243a66-71e9-4040-bc52-e7849341bd13/87c367ce-b434-490b-b378-7fde63da66d7.jpg",
+    "short": "Restore receding temples, sharpen natural frontal hairlines, or eliminate scalp show-through on diffuse thinning.",
+    "explanation": "Perfect for clients who want to maintain longer hair but suffer from diffuse thinning or a receding hairline. Thousands of follicle impressions are deposited between existing natural hair shafts to eliminate the stark white reflection of the scalp under bright lights, giving the illusion of double the hair density immediately.",
+    "time": "2\u20133 hours per session. Completed across 2\u20133 sessions over 2\u20134 weeks.",
+    "process": [
+      "Detailed hairline mapping: custom soft feathered edge or sharp defined edge based on age and bone structure.",
+      "Multi-depth pigment matching that mimics natural follicle growth angles.",
+      "Session 1: Base layer outlining shape and initial density grid.",
+      "Session 2: Micro-fill layer to build three-dimensional depth and eliminate see-through patches.",
+      "Session 3: Fine detailing and soft transition into natural existing hair."
+    ],
+    "tiers": [
+      {
+        "name": "Hairline & Temporal Angles Only",
+        "price": "$800 \u2013 $1,800",
+        "desc": "Framing the face, rebuilding receded temples, and defining frontal hairline.",
+        "img": "https://images.squarespace-cdn.com/content/v1/60fa3af16c318445404da34e/866842f0-9eaf-4769-82f0-3689c3ffb10c/Scar%2Bcamouflage%2B3JPG.jpg"
+      },
+      {
+        "name": "Crown / Vertex Thinning Density",
+        "price": "$1,000 \u2013 $2,200",
+        "desc": "Conceal thinning on the crown / vertex area without shaving your hair.",
+        "img": "https://inkdsmp.com.au/wp-content/uploads/2024/08/3.jpg"
+      },
+      {
+        "name": "Diffuse Thinning Density (Full Top)",
+        "price": "$1,200 \u2013 $2,500",
+        "desc": "Underlying follicle replication for diffuse thinning in men and women.",
+        "img": "https://images.pexels.com/photos/1453005/pexels-photo-1453005.jpeg?auto=compress&cs=tinysrgb&w=800"
+      },
+      {
+        "name": "Hairline + Crown Dual Reconstruction",
+        "price": "$2,000 \u2013 $3,500",
+        "desc": "Combined frontal hairline framing plus complete crown density coverage.",
+        "img": "https://images.pexels.com/photos/1570806/pexels-photo-1570806.jpeg?auto=compress&cs=tinysrgb&w=800"
+      }
+    ]
+  },
+  {
+    "id": "smp-full",
+    "name": "Scalp Micropigmentation (Full Scalp)",
+    "sortKey": 2000,
+    "priceLabel": "$2,000 \u2013 $5,500+",
+    "tag": "Most Popular",
+    "img": "https://www.microhairclinic.si/_next/image?q=80&url=%2Foptimized%2FIMG_9102-min.webp&w=3840",
+    "short": "Complete full-head follicle simulation creating a clean, youthful, sharp buzz-cut aesthetic across all balding zones.",
+    "explanation": "The gold-standard non-surgical transformation for total male pattern baldness (Norwood 5\u20137), alopecia, or extensive transplant failures. Recreates a full head of closely shaved hair follicles across the entire scalp, tailored to your facial symmetry with age-appropriate feathering.",
+    "time": "3\u20134 sessions. Each session 2.5\u20134 hours. Finished in 3\u20135 weeks.",
+    "process": [
+      "Full scalp architectural design: custom hairline curvature, side profile balance, and density gradient.",
+      "Session 1: Foundation pass creating the underlying follicle matrix across the scalp.",
+      "Healing interval of 7\u201310 days while the pigment sets into the upper dermis.",
+      "Sessions 2 & 3: High-density micro-point layering creating 3D textural realism and rich color tone.",
+      "Session 4: Perfection touch-up ensuring 100% uniform blending into native side and rear stubble."
+    ],
+    "tiers": [
+      {
+        "name": "Moderate Coverage (Norwood 4\u20135)",
+        "price": "$2,000 \u2013 $3,200",
+        "desc": "Receding frontal scalp, mid-scalp, and beginning crown loss. 2\u20133 sessions.",
+        "img": "https://images.pexels.com/photos/897262/pexels-photo-897262.jpeg?auto=compress&cs=tinysrgb&w=800"
+      },
+      {
+        "name": "Complete Full Scalp (Norwood 6\u20137 / Alopecia)",
+        "price": "$2,500 \u2013 $4,500",
+        "desc": "Full top-to-bottom follicle recreation across the entire cranium.",
+        "img": "https://images.pexels.com/photos/1570805/pexels-photo-1570805.jpeg?auto=compress&cs=tinysrgb&w=800"
+      },
+      {
+        "name": "Master Artist VIP Protocol (3D Micro-Layering)",
+        "price": "$3,500 \u2013 $5,500+",
+        "desc": "Ultra-fine multi-needle micro-feathered hairline with custom 3D pigment tones.",
+        "img": "https://images.pexels.com/photos/2061820/pexels-photo-2061820.jpeg?auto=compress&cs=tinysrgb&w=800"
+      },
+      {
+        "name": "Annual / Multi-Year Color Refresh",
+        "price": "$300 \u2013 $800",
+        "desc": "Single maintenance session to refresh vibrancy and crispness years later.",
+        "img": "https://images.pexels.com/photos/5584461/pexels-photo-5584461.jpeg?auto=compress&cs=tinysrgb&w=801"
+      }
+    ]
+  },
+  {
+    "id": "revision",
+    "name": "Hair Transplant Correction & Surgical Revision",
+    "sortKey": 4000,
+    "priceLabel": "$4,000 \u2013 $20,000+",
+    "tag": "Surgical Repair",
+    "img": "https://images.pexels.com/photos/3998421/pexels-photo-3998421.jpeg?auto=compress&cs=tinysrgb&w=801",
+    "short": "Specialist surgical revision to repair unnatural doll-hair plugs, aggressive hairlines, and over-harvested donor areas.",
+    "explanation": "Revision surgery is significantly more complex than a primary transplant. Our partner surgeons specialize in punch-excision of misplaced pluggy grafts, dissecting them into single-hair follicles, redistributing them with natural angulation, and repairing donor zones. Often combined with SMP for ultimate density.",
+    "time": "4\u20139 hours on procedure day depending on graft extraction count. Full cosmetic results mature over 9\u201312 months.",
+    "process": [
+      "Comprehensive surgical case review and trichoscopic scalp mapping.",
+      "Surgical excision or FUE extraction of improperly placed or pluggy donor grafts.",
+      "Microscopic dissection of excised grafts into natural single and double hair units.",
+      "Reconstruction of an irregular, soft, feathered hairline using refined micro-slits.",
+      "Post-operative donor area repair, hyperbaric oxygen recovery guidance, and SMP scar blending."
+    ],
+    "tiers": [
+      {
+        "name": "Hairline Softening & Angle Correction",
+        "price": "$4,000 \u2013 $8,000",
+        "desc": "Extraction of harsh grafts and reimplantation with feathered natural angles (600\u20131,200 grafts).",
+        "img": "https://images.pexels.com/photos/3998417/pexels-photo-3998417.jpeg?auto=compress&cs=tinysrgb&w=801"
+      },
+      {
+        "name": "Sparse Density Infusion & Fill",
+        "price": "$5,000 \u2013 $10,000",
+        "desc": "Addition of 1,000\u20132,000 micro-grafts to reinforce see-through transplanted zones.",
+        "img": "https://images.pexels.com/photos/3998442/pexels-photo-3998442.jpeg?auto=compress&cs=tinysrgb&w=801"
+      },
+      {
+        "name": "Plug Graft Excision & Redistribution",
+        "price": "$8,000 \u2013 $15,000",
+        "desc": "Complete surgical extraction of outdated large plug grafts, dissecting into micro-units.",
+        "img": "https://images.pexels.com/photos/1813274/pexels-photo-1813274.jpeg?auto=compress&cs=tinysrgb&w=801"
+      },
+      {
+        "name": "Full Complex Surgical Reconstruction",
+        "price": "$10,000 \u2013 $20,000+",
+        "desc": "Total multi-stage restorative procedure including body hair extraction and donor rebuilding.",
+        "img": "https://images.pexels.com/photos/1570807/pexels-photo-1570807.jpeg?auto=compress&cs=tinysrgb&w=801"
+      }
+    ]
+  }
+];
+
+
+// Sort cheapest first
+SERVICES.sort((a, b) => a.sortKey - b.sortKey);
+
+let currentServiceId = null;
+let profilePwVisible = false;
+
+function renderServiceCards(containerId) {
+  const el = document.getElementById(containerId);
+  if (!el) return;
+  el.innerHTML = SERVICES.map(s => `
+    <div class="svc-card" onclick="openService('${s.id}')">
+      <div class="svc-img" style="background-color:#e8eef5;position:relative;overflow:hidden;">
+        <img src="${s.img}" alt="${s.name}" style="width:100%;height:100%;object-fit:cover;position:absolute;inset:0;" onerror="this.style.display='none'">
+        <span class="tag">${s.tag}</span>
+      </div>
+      <div class="svc-body">
+        <h3>${s.name}</h3>
+        <p>${s.short}</p>
+        <div class="svc-price">${s.priceLabel}</div>
+        <button class="btn btn-primary btn-block" onclick="event.stopPropagation(); openService('${s.id}')">View details →</button>
+      </div>
+    </div>
+  `).join('');
+}
+
+function openService(id) {
+  const s = SERVICES.find(x => x.id === id);
+  if (!s) return;
+  currentServiceId = id;
+  const tiersHtml = s.tiers.map((t, i) => `
+    <div class="tier-card" style="display:flex;gap:0.9rem;align-items:stretch;" onclick="openTier('${s.id}', ${i})">
+      <div style="width:88px;min-width:88px;height:72px;border-radius:8px;background:#e8eef5;overflow:hidden;position:relative;">
+        <img src="${t.img || s.img}" alt="" style="width:100%;height:100%;object-fit:cover;" onerror="this.style.display='none'">
+      </div>
+      <div style="flex:1;">
+        <h4>${t.name}</h4>
+        <div class="tier-price">${t.price}</div>
+        <p>${t.desc}</p>
+        <p style="font-size:0.8rem;color:var(--blue);font-weight:600;margin-top:0.35rem;">View details & photos →</p>
+      </div>
+    </div>
+  `).join('');
+  const stepsHtml = s.process.map((step, i) => `
+    <div class="process-step">
+      <div class="process-num">${i + 1}</div>
+      <div>${step}</div>
+    </div>
+  `).join('');
+  document.getElementById('serviceDetailContent').innerHTML = `
+    <div class="page-hero">
+      <div class="container">
+        <div class="back-link" onclick="showPage('services-list')">← All services</div>
+        <h1>${s.name}</h1>
+        <p>${s.short}</p>
+      </div>
+    </div>
+    <section>
+      <div class="container">
+        <div class="detail-grid">
+          <div>
+            <div class="detail-img" style="position:relative;overflow:hidden;border-radius:14px;height:280px;background:#e8eef5;margin-bottom:1.2rem;">
+              <img src="${s.img}" alt="${s.name}" style="width:100%;height:100%;object-fit:cover;display:block;" onerror="this.style.display='none'">
+            </div>
+            <h3 style="color:var(--navy);margin-bottom:0.6rem;">What it is</h3>
+            <p style="margin-bottom:1rem;color:var(--muted);">${s.explanation}</p>
+            <div class="info-box">
+              <strong>⏱ Time required:</strong> ${s.time}
+            </div>
+            <h3 style="color:var(--navy);margin:1.2rem 0 0.7rem;">Process</h3>
+            <div class="process-steps">${stepsHtml}</div>
+          </div>
+          <div>
+            <h3 style="color:var(--navy);margin-bottom:0.7rem;">Pricing tiers (low → high)</h3>
+            <p style="font-size:0.88rem;color:var(--muted);margin-bottom:1rem;">US market ranges 2025–2026. Exact quote after consultation.</p>
+            ${tiersHtml}
+            <button class="btn btn-accent btn-block btn-lg" style="margin-top:1rem;" onclick="goBookFromDetail()">Book / Inquire about this service</button>
+            <button class="btn btn-outline btn-block" style="margin-top:0.6rem;" onclick="showPage('services-list')">← Back to all services</button>
+            <p style="margin-top:1rem;font-size:0.88rem;text-align:center;">Or call <a href="tel:+12032434746" style="color:var(--blue);font-weight:700;">+1 (203) 243-4746</a></p>
+          </div>
+        </div>
+      </div>
+    </section>
+  `;
+  showPage('service-detail');
+}
+
+function goBookFromDetail() {
+  const user = getCurrentUser();
+  if (!user) {
+    showPage('register');
+    return;
+  }
+  showPage('dashboard');
+  setTimeout(() => {
+    const s = SERVICES.find(x => x.id === currentServiceId);
+    const sel = document.getElementById('bookService');
+    if (sel && s) {
+      // match option by name
+      for (const o of sel.options) {
+        if (o.value === s.name || o.text === s.name) { sel.value = o.value; break; }
+      }
+      if (!sel.value) sel.value = s.name;
+    }
+    document.getElementById('bookForm')?.scrollIntoView({ behavior: 'smooth' });
+  }, 150);
+}
+
+function fillBookServiceOptions() {
+  const sel = document.getElementById('bookService');
+  if (!sel) return;
+  sel.innerHTML = '<option value="">Select service</option>' +
+    SERVICES.map(s => `<option value="${s.name}">${s.name} — ${s.priceLabel}</option>`).join('');
+}
+
+// ===== STORAGE =====
+
+
+// Shared server API — merge-safe so members never wipe each other
+const API_BASE = '';
+
+async function apiGetUsers() {
+  try {
+    const r = await fetch(API_BASE + '/api/users', { cache: 'no-store' });
+    if (!r.ok) throw new Error('api');
+    const list = await r.json();
+    if (Array.isArray(list)) {
+      try { localStorage.setItem('hi_users', JSON.stringify(list)); } catch (e) {}
+      return list;
+    }
+  } catch (e) {}
+  return null;
+}
+
+async function apiSaveUsers(users) {
+  try {
+    const r = await fetch(API_BASE + '/api/users', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(users || [])
+    });
+    if (!r.ok) throw new Error('api');
+    const data = await r.json();
+    // pull merged list back
+    await syncUsersFromServer();
+    return true;
+  } catch (e) { return false; }
+}
+
+async function apiUpsertUser(user) {
+  try {
+    const r = await fetch(API_BASE + '/api/user', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(user)
+    });
+    if (!r.ok) throw new Error('api');
+    await syncUsersFromServer();
+    return true;
+  } catch (e) {
+    // fallback: merge locally then full save
+    return false;
+  }
+}
+
+function getUsersLocal() {
+  try {
+    const raw = localStorage.getItem('hi_users') || sessionStorage.getItem('hi_users_backup') || '[]';
+    const list = JSON.parse(raw);
+    return Array.isArray(list) ? list : [];
+  } catch (e) { return []; }
+}
+
+function getUsers() {
+  return getUsersLocal();
+}
+
+function saveUsers(u) {
+  try {
+    const data = JSON.stringify(u || []);
+    localStorage.setItem('hi_users', data);
+    sessionStorage.setItem('hi_users_backup', data);
+    try { localStorage.setItem('hi_users_ping', String(Date.now())); } catch (e2) {}
+  } catch (e) {}
+  apiSaveUsers(u || []);
+}
+
+async function syncUsersFromServer() {
+  const remote = await apiGetUsers();
+  if (remote) {
+    try {
+      localStorage.setItem('hi_users', JSON.stringify(remote));
+      sessionStorage.setItem('hi_users_backup', JSON.stringify(remote));
+    } catch (e) {}
+    return remote;
+  }
+  return getUsersLocal();
+}
+
+function mergeUsersLocal(existing, incoming) {
+  const map = {};
+  (existing || []).forEach(u => { if (u && u.email) map[String(u.email).toLowerCase()] = u; });
+  (incoming || []).forEach(u => {
+    if (!u || !u.email) return;
+    const key = String(u.email).toLowerCase();
+    const prev = map[key];
+    if (!prev) map[key] = u;
+    else {
+      const bookings = (u.bookings && u.bookings.length >= (prev.bookings || []).length) ? u.bookings : (prev.bookings || []);
+      map[key] = Object.assign({}, prev, u, { bookings: bookings });
+    }
+  });
+  return Object.values(map);
+}
+
+
+function getCurrentUser() {
+  try {
+    const raw = localStorage.getItem('hi_user');
+    return raw ? JSON.parse(raw) : null;
+  } catch { return null; }
+}
+function setCurrentUser(u) {
+  if (u) localStorage.setItem('hi_user', JSON.stringify(u));
+  else localStorage.removeItem('hi_user');
+}
+
+
+let currentTier = null;
+
+function openTier(serviceId, tierIndex) {
+  const s = SERVICES.find(x => x.id === serviceId);
+  if (!s || !s.tiers[tierIndex]) return;
+  const t = s.tiers[tierIndex];
+  currentServiceId = serviceId;
+  currentTier = { serviceId, tierIndex, name: t.name, price: t.price };
+  // extra gallery images (service img + tier img + related)
+  // Gallery: this option's photo + other options in the SAME service only (no unrelated photos)
+  const siblingImgs = (s.tiers || []).map(x => x.img).filter(Boolean);
+  const gallery = [t.img, s.img].concat(siblingImgs).filter((v, i, a) => v && a.indexOf(v) === i).slice(0, 5);
+
+  const galleryHtml = gallery.map((src) => `<div style="background:#e8eef5;overflow:hidden;"><img src="${src}" alt="" style="width:100%;height:100%;object-fit:cover;" onerror="this.parentElement.style.display='none'"></div>`).join('');
+
+  document.getElementById('tierDetailContent').innerHTML = `
+    <div class="page-hero">
+      <div class="container">
+        <div class="back-link" onclick="openService('${s.id}')">← Back to ${s.name}</div>
+        <h1>${t.name}</h1>
+        <p>${s.name} · ${t.price}</p>
+      </div>
+    </div>
+    <section>
+      <div class="container" style="max-width:800px;">
+        <div style="background-color:#e8eef5;height:260px;margin-bottom:1.2rem;overflow:hidden;border-radius:14px;">
+          <img src="${t.img || s.img}" alt="" style="width:100%;height:260px;object-fit:cover;display:block;" onerror="this.style.display='none'">
+        </div>
+        <h3 style="color:var(--navy);margin-bottom:0.5rem;">About this option</h3>
+        <p style="color:var(--muted);margin-bottom:0.8rem;">${t.desc}</p>
+        <p style="color:var(--muted);margin-bottom:1rem;">${s.explanation}</p>
+        <div class="info-box">
+          <strong>Price range:</strong> ${t.price}<br>
+          <strong>⏱ Time:</strong> ${s.time}
+        </div>
+        <h3 style="color:var(--navy);margin:1.2rem 0 0.6rem;">Example photos</h3>
+        <div class="tier-gallery">${galleryHtml}</div>
+        <h3 style="color:var(--navy);margin:1.2rem 0 0.6rem;">What happens in the process</h3>
+        <div class="process-steps">
+          ${s.process.map((step, i) => `
+            <div class="process-step">
+              <div class="process-num">${i + 1}</div>
+              <div>${step}</div>
+            </div>
+          `).join('')}
+        </div>
+        <div style="margin-top:1.5rem;display:flex;flex-wrap:wrap;gap:0.7rem;">
+          <button class="btn btn-accent btn-lg" onclick="goBookFromTier()">Book this option</button>
+          <button class="btn btn-outline" onclick="openService('${s.id}')">← All tiers for ${s.name}</button>
+          <button class="btn btn-outline" onclick="showPage('services-list')">All services</button>
+        </div>
+        <p style="margin-top:1rem;font-size:0.9rem;">Questions? <a href="tel:+12032434746" style="color:var(--blue);font-weight:700;">+1 (203) 243-4746</a></p>
+      </div>
+    </section>
+  `;
+  showPage('tier-detail');
+}
+
+function goBookFromTier() {
+  const user = getCurrentUser();
+  if (!user) { showPage('register'); return; }
+  showPage('dashboard');
+  setTimeout(() => {
+    const s = SERVICES.find(x => x.id === currentServiceId);
+    const sel = document.getElementById('bookService');
+    if (sel && s) {
+      for (const o of sel.options) {
+        if (o.value === s.name || o.text.indexOf(s.name) === 0) { sel.value = o.value; break; }
+      }
+      if (!sel.value) sel.value = s.name;
+    }
+    const problem = document.getElementById('bookProblem');
+    if (problem && currentTier) {
+      problem.value = 'Interested in: ' + currentTier.name + ' (' + currentTier.price + '). ';
+    }
+    document.getElementById('bookForm')?.scrollIntoView({ behavior: 'smooth' });
+  }, 150);
+}
+
+const TESTIMONIALS = [
+  {
+    "stars": 5,
+    "quote": "After two failed transplants I was ready to give up. Scar camouflage made the strip almost invisible under a short cut.",
+    "who": "Marcus T.",
+    "where": "Texas \u00b7 Scar camouflage"
+  },
+  {
+    "stars": 5,
+    "quote": "Turned a faded 10-year-old arm tattoo into an incredible custom sleeve. Line work, shading, and contrast are unmatched.",
+    "who": "Elena V.",
+    "where": "Nevada \u00b7 Tattoo Cover-Up"
+  },
+  {
+    "stars": 5,
+    "quote": "Clear pricing and honest advice. They told me what would work for my density without pushing the most expensive option.",
+    "who": "James R.",
+    "where": "California \u00b7 SMP density"
+  },
+  {
+    "stars": 5,
+    "quote": "Cleanest studio experience. Fine-line floral design on my forearm healed with razor-sharp precision and perfect tone.",
+    "who": "Jordan M.",
+    "where": "Washington \u00b7 Custom Tattoo"
+  },
+  {
+    "stars": 5,
+    "quote": "Booked a free consult, got a real plan for my FUE dots. Process was explained step by step. Very professional.",
+    "who": "David K.",
+    "where": "New York \u00b7 Scar work"
+  },
+  {
+    "stars": 5,
+    "quote": "Paramedical scar camouflage made my surgical appendectomy scar fade into my skin tone. Could not be happier.",
+    "who": "Sophia D.",
+    "where": "Massachusetts \u00b7 Paramedical Camouflage"
+  },
+  {
+    "stars": 5,
+    "quote": "Laser removal of an old scalp tattoo took several sessions but the team prepared me for the timeline. Worth it.",
+    "who": "Chris P.",
+    "where": "Florida \u00b7 SMP removal"
+  },
+  {
+    "stars": 5,
+    "quote": "Hairline SMP looks natural. Nobody asks if I had work done \u2014 they just say I look sharper.",
+    "who": "Andre M.",
+    "where": "Illinois \u00b7 Hairline SMP"
+  },
+  {
+    "stars": 5,
+    "quote": "Revision consult was detailed. They showed me realistic before/after expectations before I committed.",
+    "who": "Kevin L.",
+    "where": "Georgia \u00b7 Transplant revision"
+  },
+  {
+    "stars": 5,
+    "quote": "Five stars for communication. Always knew what the next session would cost and how long it would take.",
+    "who": "Ryan S.",
+    "where": "Ohio \u00b7 Full SMP"
+  },
+  {
+    "stars": 5,
+    "quote": "Combined scar blend and density fill. Portal made booking easy and admin followed up on my case.",
+    "who": "Omar H.",
+    "where": "New Jersey \u00b7 Combined plan"
+  },
+  {
+    "stars": 5,
+    "quote": "I compared three clinics. HairInk helped me understand US price ranges so I did not overpay.",
+    "who": "Tyler B.",
+    "where": "Colorado \u00b7 Consultation"
+  },
+  {
+    "stars": 5,
+    "quote": "From first form to final touch-up the process was clear. Highly recommend for anyone with transplant scars or ink needs.",
+    "who": "Nathan W.",
+    "where": "Arizona \u00b7 FUT scar camouflage"
+  }
+];
+
+
+
+
+// ===== FAQ / BA / PROVIDERS DATA =====
+const FAQ_ITEMS = [
+  { q: 'How much does SMP cost in the USA?', a: 'Full treatments often run $2,000–$4,500. Partial hairline or density work can start lower ($800–$3,000). Exact quotes depend on coverage and location.' },
+  { q: 'Does scar camouflage hurt?', a: 'Most people describe mild to moderate discomfort, similar to a tattoo. Sessions are relatively short (1–2 hours). Numbing options are often available.' },
+  { q: 'How many laser removal sessions will I need?', a: 'Small simple tattoos may need 4–7 sessions. Dense or multi-color work often needs more. Sessions are usually spaced 6–12 weeks apart.' },
+  { q: 'How long until I see final transplant revision results?', a: 'Healing is weeks; visible growth builds over months. Final density is often judged around 9–12 months after surgery.' },
+  { q: 'Is a free consultation really free?', a: 'Yes. You describe your case (photos optional). You get guidance on realistic options. There is no obligation to book treatment.' },
+  { q: 'Can SMP fix a bad hair transplant?', a: 'SMP can blend scars and add the look of density. Surgical revision may be needed for pluggy grafts or a poor hairline. Many clients use both.' },
+  { q: 'How long does SMP last?', a: 'Often several years before a touch-up. Sun, skin type, and aftercare affect fade. Refresh sessions are common every few years.' },
+  { q: 'Do you operate in a specific US city?', a: 'HairInk is a national guidance and booking portal. We help you understand options and connect with appropriate providers without locking you to one city on the site.' },
+  { q: 'Why does cost vary so much?', a: 'Price depends on area size, number of sessions, pigment complexity, scar type, and provider location. A small scar is far less than full-scalp SMP or surgical revision. Always get a written plan for your case.' },
+  { q: 'Is a deposit required?', a: 'Many clinics require a deposit to hold a procedure date. Consultation through this portal is free unless a provider states otherwise in writing.' },
+  { q: 'Can I finance treatment?', a: 'Cosmetic procedures are usually not covered by insurance. Some clinics offer payment plans or third-party financing. Ask during consult and compare total cost including interest.' }
+];
+
+const BEFORE_AFTER = [
+  { title: 'Scar / density blend concept', service: 'Scar work', before: 'https://static.wixstatic.com/media/620b58_c8cf22ea96c946bfab79747e44a49844~mv2.png/v1/fill/w_836%2Ch_822%2Cal_c/620b58_c8cf22ea96c946bfab79747e44a49844~mv2.png', after: 'https://images.squarespace-cdn.com/content/v1/5e9a04caec68282d2e92a69b/1587743326872-UGXLC7Z2UMBYJU9KKLI2/scar-camouflage-oklahoma-city-okc-3.jpg', note: 'Barber/scalp style reference — results vary.' },
+  { title: 'Hairline short style', service: 'SMP', before: 'https://www.microhairclinic.si/_next/image?q=80&url=%2Foptimized%2FIMG_9102-min.webp&w=3840', after: 'https://cdn.outrank.so/85243a66-71e9-4040-bc52-e7849341bd13/87c367ce-b434-490b-b378-7fde63da66d7.jpg', note: 'Haircut density concept.' },
+  { title: 'Full short crop look', service: 'Full SMP', before: 'https://res.cloudinary.com/wavy/image/upload/f_auto%2Cq_auto%2Cw_800%2Ch_780%2Cc_fill%2Cg_north/v1711012686/tw-tricopigmentation-paris-neuilly-sur-seine-photo-14d1c47e------.jpg', after: 'https://cdn.outrank.so/85243a66-71e9-4040-bc52-e7849341bd13/87c367ce-b434-490b-b378-7fde63da66d7.jpg', note: 'Close-cut style reference.' },
+  { title: 'Tattoo session / cover direction', service: 'Tattoo', before: 'https://mma.prnewswire.com/media/2741298/Removery.jpg?p=twitter', after: 'https://images.pexels.com/photos/4123911/pexels-photo-4123911.jpeg?auto=compress&cs=tinysrgb&w=900', note: 'Tattoo studio reference only.' },
+  { title: 'Crown / top grooming', service: 'SMP density', before: 'https://images.squarespace-cdn.com/content/v1/60fa3af16c318445404da34e/866842f0-9eaf-4769-82f0-3689c3ffb10c/Scar%2Bcamouflage%2B3JPG.jpg', after: 'https://inkdsmp.com.au/wp-content/uploads/2024/08/3.jpg', note: 'Hair density concept.' },
+  { title: 'Clinical consultation', service: 'Consultation', before: 'https://mma.prnewswire.com/media/2741298/Removery.jpg?p=twitter', after: 'https://static.wixstatic.com/media/29e0f0_94171cc7f7d64682b830694fb84ae977~mv2.jpg/v1/fill/w_640%2Ch_390%2Cal_b%2Cq_80%2Cusm_0.66_1.00_0.01%2Cenc_avif%2Cquality_auto/29e0f0_94171cc7f7d64682b830694fb84ae977~mv2.jpg', note: 'Consult pathway illustration.' }
+];
+
+
+
+
+const PROVIDERS = [
+  { name: 'Northeast SMP Studio', region: 'Northeast USA', focus: 'Full SMP, hairline, scar blend', note: 'Multi-session density packages.' },
+  { name: 'Midwest Scar & Pigment', region: 'Midwest', focus: 'FUE/FUT scar camouflage', note: 'Strong focus on donor scars.' },
+  { name: 'Sunbelt Laser & Ink', region: 'South / Southwest', focus: 'Laser removal, cover-ups', note: 'Removal + redesign pathways.' },
+  { name: 'Pacific Density Clinic', region: 'West Coast', focus: 'SMP + transplant revision consults', note: 'Combined plans common.' },
+  { name: 'Capitol Hair Repair Network', region: 'Mid-Atlantic', focus: 'Revision guidance, second opinions', note: 'Case review oriented.' },
+  { name: 'Great Lakes Micropigmentation', region: 'Great Lakes', focus: 'Women’s density & men’s full scalp', note: 'Broad SMP menu.' }
+];
+
+function renderFaq() {
+  const el = document.getElementById('faqList');
+  if (!el) return;
+  el.innerHTML = FAQ_ITEMS.map((f,i) => `
+    <div class="faq-item" id="faq${i}">
+      <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">${f.q} <span>+</span></div>
+      <div class="faq-a">${f.a}</div>
+    </div>
+  `).join('');
+}
+
+function renderProviders() {
+  const el = document.getElementById('provGrid');
+  if (!el) return;
+  el.innerHTML = PROVIDERS.map(p => `
+    <div class="prov-card">
+      <h4>${p.name}</h4>
+      <div class="meta">${p.region}</div>
+      <p style="font-size:0.88rem;margin-bottom:0.5rem;"><strong>Focus:</strong> ${p.focus}</p>
+      <p style="font-size:0.82rem;color:var(--muted);">${p.note}</p>
+      <button class="btn btn-primary btn-sm" style="margin-top:0.7rem;" onclick="waProvider('${p.name.replace(/'/g,"\\'")}')">WhatsApp about this</button>
+    </div>
+  `).join('');
+}
+
+function waProvider(name) {
+  const msg = encodeURIComponent('Hi HairInk, I am interested in provider: ' + name);
+  window.open('https://wa.me/12032434746?text=' + msg, '_blank');
+}
+
+function toggleMenu(btn) {
+  const nav = btn.parentElement.querySelector('.nav');
+  if (nav) nav.classList.toggle('open');
+}
+
+function handleReset(e) {
+  e.preventDefault();
+  const email = document.getElementById('resetEmail').value.trim().toLowerCase();
+  const pw = document.getElementById('resetPw').value;
+  const pw2 = document.getElementById('resetPw2').value;
+  const err = document.getElementById('resetError');
+  const ok = document.getElementById('resetSuccess');
+  err.style.display = 'none'; ok.style.display = 'none';
+  if (!validPassword(pw)) { err.style.display='block'; err.textContent='Password must include letters, numbers, and a special character (min 8).'; return; }
+  if (pw !== pw2) { err.style.display='block'; err.textContent='Passwords do not match.'; return; }
+  const users = getUsers();
+  const u = users.find(x => x.email === email);
+  if (!u) { err.style.display='block'; err.textContent='No account with that email.'; return; }
+  u.password = pw;
+  saveUsers(users);
+  ok.style.display = 'block';
+  ok.textContent = 'Password updated. You can login now.';
+}
+
+function exportMembersCSV() {
+  const users = getUsers();
+  let csv = 'Name,Email,Phone,Country,State,Bookings,Joined,Notes\\n';
+  users.forEach(u => {
+    const notes = (u.adminNotes || '').replace(/"/g, '""').replace(/\\n/g, ' ');
+    csv += `"${u.name}","${u.email}","${u.phone||''}","${u.country||''}","${u.state||''}",${(u.bookings||[]).length},"${u.createdAt||''}","${notes}"\\n`;
+  });
+  const blob = new Blob([csv], { type: 'text/csv' });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'hairink-members.csv';
+  a.click();
+}
+
+function setBookingStatus(email, bookIndex, status) {
+  const users = getUsers();
+  const u = users.find(x => x.email === email);
+  if (!u || !u.bookings || !u.bookings[bookIndex]) return;
+  u.bookings[bookIndex].status = status;
+  saveUsers(users);
+  apiUpsertUser(u);
+  loadAdmin();
+}
+
+function saveAdminNote(email, text) {
+  const users = getUsers();
+  const u = users.find(x => x.email === email);
+  if (!u) return;
+  u.adminNotes = text;
+  saveUsers(users);
+}
+
+// i18n
+const I18N = {
+  en: { howTitle:'How it works', howDesc:'From first question to treatment — simple steps.', step1t:'Create account', step1d:'Register with name, phone, and location.', step2t:'Explore services', step2d:'Compare prices, process, and time for each option.', step3t:'Book consult', step3d:'Describe your case. We review within 1–2 days.', step4t:'Get treated', step4d:'Work with a matched specialist for your plan.', cmpTitle:'Quick comparison', cmpDesc:'Side-by-side view of common options.', faqTitle:'Frequently asked questions', faqSub:'Straight answers on cost, pain, sessions, and recovery.', baTitle:'Before & After', baSub:'Example outcomes for SMP, scars, removal, and revision guidance.', provTitle:'Provider directory', provSub:'Example specialists across the USA.' },
+  es: { howTitle:'Cómo funciona', howDesc:'De la primera pregunta al tratamiento — pasos simples.', step1t:'Crear cuenta', step1d:'Regístrese con nombre, teléfono y ubicación.', step2t:'Ver servicios', step2d:'Compare precios, proceso y tiempo.', step3t:'Reservar consulta', step3d:'Describa su caso. Respondemos en 1–2 días.', step4t:'Tratamiento', step4d:'Trabaje con un especialista adecuado.', cmpTitle:'Comparación rápida', cmpDesc:'Vista lado a lado de opciones comunes.', faqTitle:'Preguntas frecuentes', faqSub:'Respuestas sobre costo, dolor, sesiones y recuperación.', baTitle:'Antes y después', baSub:'Ejemplos de SMP, cicatrices, eliminación y revisión.', provTitle:'Directorio de proveedores', provSub:'Especialistas de ejemplo en EE.UU.' }
+};
+let currentLang = localStorage.getItem('hi_lang') || 'en';
+
+function setLang(lang) {
+  currentLang = lang;
+  localStorage.setItem('hi_lang', lang);
+  const dict = I18N[lang] || I18N.en;
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const k = el.getAttribute('data-i18n');
+    if (dict[k]) el.textContent = dict[k];
+  });
+}
+
+function toggleLang() {
+  setLang(currentLang === 'en' ? 'es' : 'en');
+}
+
+
+
+function toggleChat() {
+  const p = document.getElementById('chatPanel');
+  if (p) p.classList.toggle('open');
+}
+
+function toggleLargeText() {
+  document.body.classList.toggle('a11y-large');
+  const on = document.body.classList.contains('a11y-large');
+  localStorage.setItem('hi_a11y_large', on ? '1' : '0');
+  const btn = document.getElementById('a11yTextBtn');
+  if (btn) btn.classList.toggle('active', on);
+}
+
+function initA11y() {
+  if (localStorage.getItem('hi_a11y_large') === '1') {
+    document.body.classList.add('a11y-large');
+    const btn = document.getElementById('a11yTextBtn');
+    if (btn) btn.classList.add('active');
+  }
+}
+
+function setupPhotoPreview() {
+  const input = document.getElementById('bookPhotos');
+  const prev = document.getElementById('photoPreview');
+  if (!input || !prev) return;
+  input.onchange = function() {
+    prev.innerHTML = '';
+    const files = Array.from(input.files || []).slice(0, 5);
+    files.forEach(f => {
+      if (!f.type.startsWith('image/')) return;
+      const reader = new FileReader();
+      reader.onload = e => {
+        const img = document.createElement('img');
+        img.src = e.target.result;
+        img.alt = f.name;
+        prev.appendChild(img);
+      };
+      reader.readAsDataURL(f);
+    });
+  };
+}
+
+function updateNav() {
+  const user = getCurrentUser();
+  document.querySelectorAll('.nav').forEach(nav => {
+    if (nav.closest('#page-admin') || nav.closest('#page-admin-login')) return;
+    const page = nav.closest('.page');
+    const id = page ? page.id : '';
+    if (id === 'page-dashboard' || id === 'page-profile') return;
+    if (user && user.email) {
+      let extra = '';
+      if (id === 'page-service-detail') extra = '<button onclick="goBookFromDetail()">Book This</button>';
+      if (id === 'page-tier-detail') extra = '<button onclick="goBookFromTier()">Book This</button>';
+      nav.innerHTML = `
+        <a onclick="showPage('services-list')">Services</a>
+        <a onclick="showPage('before-after')">Before/After</a>
+        <a onclick="showPage('faq')">FAQ</a>
+        ${extra}
+        <button onclick="showPage('dashboard')">My Portal</button>
+        <button onclick="showPage('profile')">Profile</button>
+        <button class="lang-btn" onclick="toggleLang()">EN/ES</button>
+        <button onclick="logout()">Logout</button>
+      `;
+    } else {
+      // guest - ensure services never requires login
+      if (id === 'page-services-list' || id === 'page-service-detail' || id === 'page-tier-detail' || id === 'page-landing') {
+        // leave default HTML unless empty
+      }
+    }
+  });
+}
+
+function showPage(name) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  const page = document.getElementById('page-' + name);
+  if (page) page.classList.add('active');
+  window.scrollTo(0, 0);
+  if (name === 'dashboard') loadDashboard();
+  if (name === 'profile') loadProfile();
+  if (name === 'services-list') renderServiceCards('allServices');
+  if (name === 'landing') { renderServiceCards('landingServices'); renderTestimonials(); setLang(currentLang); }
+  if (name === 'faq') renderFaq();
+  if (name === 'before-after') renderBeforeAfter();
+  if (name === 'providers') renderProviders();
+  if (name === 'admin') {
+    if (!sessionStorage.getItem('hi_admin')) { showPage('admin-login'); return; }
+    loadAdmin();
+    startAdminRefresh();
+    stopClientSilentRefresh();
+  } else {
+    stopAdminRefresh();
+    const cur = getCurrentUser();
+    if (cur && cur.email && (name === 'dashboard' || name === 'profile' || name === 'landing' || name === 'services-list')) {
+      startClientSilentRefresh();
+    } else if (!cur) {
+      stopClientSilentRefresh();
+    }
+  }
+  updateNav();
+}
+
+function toggleState() {
+  const c = document.getElementById('regCountry').value;
+  document.getElementById('stateGroup').style.display = c === 'United States' ? 'block' : 'none';
+  if (c !== 'United States') document.getElementById('regState').value = '';
+}
+
+function validPassword(pw) {
+  return /[a-zA-Z]/.test(pw) && /[0-9]/.test(pw) && /[^a-zA-Z0-9]/.test(pw) && pw.length >= 8;
+}
+
+async function handleRegister(e) {
+  e.preventDefault();
+  const name = document.getElementById('regName').value.trim();
+  const phone = document.getElementById('regPhone').value.trim();
+  const country = document.getElementById('regCountry').value;
+  const state = document.getElementById('regState').value;
+  const email = document.getElementById('regEmail').value.trim().toLowerCase();
+  const password = document.getElementById('regPassword').value;
+  const confirm = document.getElementById('regConfirm').value;
+  const err = document.getElementById('regError');
+  if (!name || !phone || !country || !email) {
+    err.style.display = 'block'; err.textContent = 'Please fill all required fields.'; return;
+  }
+  if (country === 'United States' && !state) {
+    err.style.display = 'block'; err.textContent = 'Please select your state.'; return;
+  }
+  if (!validPassword(password)) {
+    err.style.display = 'block';
+    err.textContent = 'Password must be at least 8 characters and include letters, numbers, and a special character.';
+    return;
+  }
+  if (password !== confirm) {
+    err.style.display = 'block'; err.textContent = 'Passwords do not match.'; return;
+  }
+  let users = await syncUsersFromServer();
+  if (users.find(u => u.email === email)) {
+    err.style.display = 'block'; err.textContent = 'Email already registered. Please login.'; return;
+  }
+  err.style.display = 'none';
+  const user = {
+    name, phone, country, state: country === 'United States' ? state : '',
+    email, password, bookings: [], createdAt: new Date().toISOString(), accepted: false
+  };
+  users = mergeUsersLocal(users, [user]);
+  saveUsers(users);
+  await apiUpsertUser(user);
+  setCurrentUser({ name, email, phone, country, state: user.state });
+  notifyAdminEmail('New HairInk member: ' + name, 'Name: ' + name + '\nEmail: ' + email + '\nPhone: ' + phone + '\nLocation: ' + (user.state ? user.state + ', ' : '') + country);
+  showToast('Account created successfully');
+  showPage('dashboard');
+}
+
+function handleLogin(e) {
+  e.preventDefault();
+  const email = document.getElementById('loginEmail').value.trim().toLowerCase();
+  const password = document.getElementById('loginPassword').value;
+  const err = document.getElementById('loginError');
+  const users = getUsers();
+  const found = users.find(u => u.email === email);
+  if (!found) { err.style.display = 'block'; err.textContent = 'No account found. Please register.'; return; }
+  if (found.blocked) { err.style.display = 'block'; err.textContent = 'This account has been blocked. Contact support.'; return; }
+  if (found.password !== password) { err.style.display = 'block'; err.textContent = 'Incorrect password.'; return; }
+  err.style.display = 'none';
+  setCurrentUser({ name: found.name, email: found.email, phone: found.phone, country: found.country, state: found.state || '' });
+  showPage('dashboard');
+}
+
+function logout() {
+  setCurrentUser(null);
+  showPage('login');
+}
+
+
+
+function showToast(msg, isError) {
+  const t = document.getElementById('hiToast');
+  if (!t) { alert(msg); return; }
+  t.textContent = msg;
+  t.className = 'toast show' + (isError ? ' error' : '');
+  clearTimeout(window._toastTimer);
+  window._toastTimer = setTimeout(() => { t.className = 'toast'; }, 4200);
+}
+
+function notifyAdminEmail(subject, details) {
+  // Formspree — replace FORM_ID with your form id from formspree.io
+  const FORM = 'https://formspree.io/f/xpwzgkqy';
+  try {
+    fetch(FORM, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+      body: JSON.stringify({ _subject: subject, message: details, source: 'HairInk Solutions' })
+    }).catch(() => {});
+  } catch (e) {}
+}
+
+function compressImageFile(file, maxW, quality) {
+  maxW = maxW || 1200;
+  quality = quality || 0.72;
+  return new Promise((resolve) => {
+    if (!file || !file.type.startsWith('image/')) { resolve(null); return; }
+    const img = new Image();
+    const url = URL.createObjectURL(file);
+    img.onload = () => {
+      let w = img.width, h = img.height;
+      if (w > maxW) { h = Math.round(h * maxW / w); w = maxW; }
+      const canvas = document.createElement('canvas');
+      canvas.width = w; canvas.height = h;
+      const ctx = canvas.getContext('2d');
+      ctx.drawImage(img, 0, 0, w, h);
+      URL.revokeObjectURL(url);
+      resolve({ name: file.name, dataUrl: canvas.toDataURL('image/jpeg', quality) });
+    };
+    img.onerror = () => { URL.revokeObjectURL(url); resolve(null); };
+    img.src = url;
+  });
+}
+
+async function readPhotosAsDataUrls() {
+  const input = document.getElementById('bookPhotos');
+  if (!input || !input.files || !input.files.length) return [];
+  const files = Array.from(input.files).slice(0, 5);
+  const out = [];
+  for (const f of files) {
+    const compressed = await compressImageFile(f, 1200, 0.72);
+    if (compressed) out.push(compressed);
+  }
+  return out;
+}
+
+let baFilter = 'all';
+function filterBA(key, btn) {
+  baFilter = key || 'all';
+  document.querySelectorAll('#baFilters button').forEach(b => b.classList.remove('active'));
+  if (btn) btn.classList.add('active');
+  renderBeforeAfter();
+}
+
+function renderBeforeAfter() {
+  const el = document.getElementById('baGrid');
+  if (!el || typeof BEFORE_AFTER === 'undefined') return;
+  const list = BEFORE_AFTER.filter(b => {
+    if (baFilter === 'all') return true;
+    const s = (b.service || '').toLowerCase();
+    const k = baFilter.toLowerCase();
+    return s.indexOf(k) >= 0 || (k === 'scar' && s.indexOf('scar') >= 0);
+  });
+  el.innerHTML = list.map(b => `
+    <div class="ba-card">
+      <div class="ba-pair">
+        <img src="${b.before}" alt="Before" onerror="this.style.background='#e8eef5'">
+        <img src="${b.after}" alt="After" onerror="this.style.background='#e8eef5'">
+      </div>
+      <div class="ba-labels"><span>Before</span><span>After</span></div>
+      <div class="ba-body"><h4>${b.title}</h4><p style="font-size:0.8rem;color:var(--muted);">${b.service} · ${b.note}</p></div>
+    </div>
+  `).join('') || '<p style="text-align:center;color:var(--muted);">No examples in this filter.</p>';
+}
+
+function deleteMember(email) {
+  if (!confirm('Delete member ' + email + '? This cannot be undone.')) return;
+  let users = getUsers().filter(u => u.email !== email);
+  saveUsers(users);
+  loadAdmin();
+  showToast('Member deleted');
+}
+
+function toggleBlockMember(email) {
+  const users = getUsers();
+  const u = users.find(x => x.email === email);
+  if (!u) return;
+  u.blocked = !u.blocked;
+  saveUsers(users);
+  loadAdmin();
+  showToast(u.blocked ? 'Member blocked' : 'Member unblocked');
+}
+
+function ensureAdminUI() {
+  const body = document.getElementById('adminBody');
+  if (!body) return;
+  const panel = body.closest('.panel') || body.parentElement;
+  if (!panel) return;
+  if (!document.getElementById('adminSearch')) {
+    const search = document.createElement('input');
+    search.id = 'adminSearch';
+    search.className = 'admin-search';
+    search.placeholder = 'Search name, email, phone…';
+    search.oninput = function() { loadAdmin(); };
+    panel.insertBefore(search, panel.firstChild);
+  }
+  if (!document.getElementById('adminCharts')) {
+    const charts = document.createElement('div');
+    charts.id = 'adminCharts';
+    charts.className = 'chart-row';
+    const parent = panel.parentElement || panel;
+    parent.insertBefore(charts, panel);
+  }
+}
+
+function renderAdminCharts(users) {
+  const el = document.getElementById('adminCharts');
+  if (!el) return;
+  const now = Date.now();
+  const week = 7 * 24 * 3600 * 1000;
+  const newWeek = users.filter(u => u.createdAt && (now - new Date(u.createdAt).getTime()) < week).length;
+  let pending = 0, confirmed = 0, done = 0;
+  users.forEach(u => (u.bookings || []).forEach(b => {
+    const s = b.status || 'Pending';
+    if (s === 'Confirmed') confirmed++;
+    else if (s === 'Done') done++;
+    else pending++;
+  }));
+  const max = Math.max(pending + confirmed + done, newWeek, 1);
+  el.innerHTML = `
+    <div class="chart-bar-wrap"><div class="lbl">New members (7 days)</div><div class="num">${newWeek}</div>
+      <div class="chart-bar"><span style="width:${Math.round(newWeek/max*100)}%"></span></div></div>
+    <div class="chart-bar-wrap"><div class="lbl">Pending bookings</div><div class="num">${pending}</div>
+      <div class="chart-bar"><span style="width:${Math.round(pending/max*100)}%;background:#f59e0b"></span></div></div>
+    <div class="chart-bar-wrap"><div class="lbl">Confirmed</div><div class="num">${confirmed}</div>
+      <div class="chart-bar"><span style="width:${Math.round(confirmed/max*100)}%;background:#10b981"></span></div></div>
+    <div class="chart-bar-wrap"><div class="lbl">Completed</div><div class="num">${done}</div>
+      <div class="chart-bar"><span style="width:${Math.round(done/max*100)}%;background:#6366f1"></span></div></div>
+  `;
+}
+
+
+function statusLabel(status) {
+  const s = (status || 'Pending').trim();
+  if (s === 'Confirmed') return {
+    badge: 'badge-confirmed',
+    text: 'Confirmed by admin',
+    hint: 'Your booking has been confirmed by the admin. Please proceed — call or WhatsApp +1 (203) 243-4746 to schedule your next steps.',
+    banner: 'confirmed'
+  };
+  if (s === 'Done') return {
+    badge: 'badge-done',
+    text: 'Completed',
+    hint: 'This booking is marked complete by the admin.',
+    banner: 'done'
+  };
+  return {
+    badge: 'badge-pending',
+    text: 'Under review',
+    hint: 'Your booking is under review by the admin. You will be notified here when it is confirmed.',
+    banner: 'review'
+  };
+}
+
+function confirmBooking(email, bookIndex) {
+  setBookingStatus(email, bookIndex, 'Confirmed');
+  const users = getUsers();
+  const u = users.find(x => x.email === email);
+  if (u && u.bookings && u.bookings[bookIndex]) {
+    if (!(u.bookings[bookIndex].adminReply || '').trim()) {
+      u.bookings[bookIndex].adminReply = 'Your booking has been confirmed by the admin. Please call or WhatsApp +1 (203) 243-4746 to proceed with scheduling.';
+      saveUsers(users);
+    }
+  }
+  loadAdmin();
+  if (typeof showToast === 'function') showToast('Booking confirmed — client will see this on their account');
+}
+
+function markUnderReview(email, bookIndex) {
+  setBookingStatus(email, bookIndex, 'Pending');
+  loadAdmin();
+  if (typeof showToast === 'function') showToast('Marked under review');
+}
+
+function acceptMember(email) {
+  const users = getUsers();
+  const u = users.find(x => x.email === email);
+  if (!u) return;
+  u.accepted = true;
+  u.blocked = false;
+  saveUsers(users);
+  loadAdmin();
+  if (typeof showToast === 'function') showToast('Member accepted');
+}
+
+
+function setBookingAdminReply(email, bookIndex, text) {
+  const users = getUsers();
+  const u = users.find(x => x.email === email);
+  if (!u || !u.bookings || !u.bookings[bookIndex]) return;
+  u.bookings[bookIndex].adminReply = text;
+  saveUsers(users);
+  apiUpsertUser(u);
+}
+
+
+async function loadDashboard() {
+  const cur = getCurrentUser();
+  if (!cur) { showPage('login'); return; }
+  const users = await syncUsersFromServer();
+  const full = users.find(u => u.email === cur.email) || cur;
+  document.getElementById('dashName').textContent = full.name;
+  document.getElementById('dashPhone').textContent = full.phone || '—';
+  const loc = full.country === 'United States' && full.state ? full.state + ', USA' : (full.country || '—');
+  document.getElementById('dashLocation').textContent = loc;
+  document.getElementById('dashMeta').textContent = full.email;
+  const bookings = full.bookings || [];
+  document.getElementById('dashAppts').textContent = bookings.length;
+  renderServiceCards('dashServices');
+  fillBookServiceOptions();
+  const dt = document.getElementById('dashTestimonials');
+  if (dt && typeof TESTIMONIALS !== 'undefined') {
+    dt.innerHTML = TESTIMONIALS.map(t => `
+      <div class="testimonial-card">
+        <div class="stars-sm">${'★'.repeat(t.stars)}</div>
+        <div class="quote">"${t.quote}"</div>
+        <div class="who">${t.who}</div>
+        <div class="where">${t.where}</div>
+      </div>
+    `).join('');
+  }
+  const tbody = document.getElementById('memberBookings');
+  if (!bookings.length) {
+    tbody.innerHTML = '<tr><td colspan="4" style="color:#9ca3af;text-align:center;">No bookings yet</td></tr>';
+  } else {
+    tbody.innerHTML = bookings.map(b => {
+      const st = statusLabel(b.status);
+      const note = (b.adminReply || '').trim();
+      return `
+      <tr>
+        <td>${b.date || (b.createdAt || '').slice(0,10) || '—'}</td>
+        <td colspan="1">${b.service}
+          <div class="status-banner ${st.banner || 'review'}">${st.text}: ${st.hint}</div>
+          ${note ? `<div class="msg-box-client"><div class="msg-label">Message from admin</div>${note.replace(/</g,'&lt;')}</div>` : ''}
+        </td>
+        <td style="max-width:220px;">${(b.problem || '').replace(/</g,'&lt;')}</td>
+        <td>
+          <span class="badge ${st.badge}">${st.text}</span>
+        </td>
+      </tr>`;
+    }).join('');
+  }
+}
+
+function loadProfile() {
+  const cur = getCurrentUser();
+  if (!cur) { showPage('login'); return; }
+  const users = getUsers();
+  const full = users.find(u => u.email === cur.email) || cur;
+  document.getElementById('profName').textContent = full.name || '—';
+  document.getElementById('profEmail').textContent = full.email || '—';
+  document.getElementById('profPhone').textContent = full.phone || '—';
+  document.getElementById('profCountry').textContent = full.country || '—';
+  document.getElementById('profState').textContent = full.state || (full.country === 'United States' ? '—' : 'N/A');
+  document.getElementById('profJoined').textContent = full.createdAt ? new Date(full.createdAt).toLocaleString() : '—';
+  profilePwVisible = false;
+  document.getElementById('profPw').textContent = '••••••••';
+  window._profPw = full.password || '';
+}
+
+function toggleProfPw() {
+  profilePwVisible = !profilePwVisible;
+  document.getElementById('profPw').textContent = profilePwVisible ? (window._profPw || '—') : '••••••••';
+}
+
+async function handleBook(e) {
+  e.preventDefault();
+  const cur = getCurrentUser();
+  if (!cur) { showPage('login'); return false; }
+  const service = document.getElementById('bookService').value;
+  const date = document.getElementById('bookDate').value;
+  const problem = document.getElementById('bookProblem').value.trim();
+  if (!service || !problem) return false;
+  const em = document.getElementById('bookMemberEmail');
+  const nm = document.getElementById('bookMemberName');
+  const ph = document.getElementById('bookMemberPhone');
+  if (em) em.value = cur.email || '';
+  if (nm) nm.value = cur.name || '';
+  if (ph) ph.value = cur.phone || '';
+  let photos = [];
+  try { photos = await readPhotosAsDataUrls(); } catch (err) { photos = []; }
+  let users = await syncUsersFromServer();
+  const u = users.find(x => x.email === cur.email);
+  if (!u) return false;
+  if (!u.bookings) u.bookings = [];
+  u.bookings.unshift({
+    service, date, problem, status: 'Pending', createdAt: new Date().toISOString(),
+    photos: photos.map(p => ({ name: p.name, dataUrl: p.dataUrl }))
+  });
+  saveUsers(users);
+  await apiUpsertUser(u);
+  document.getElementById('bookSuccess').style.display = 'block';
+  notifyAdminEmail('New HairInk booking: ' + service, 'Member: ' + (cur.name || '') + ' (' + (cur.email || '') + ')\nPhone: ' + (cur.phone || '') + '\nService: ' + service + '\nDate: ' + (date || 'n/a') + '\nProblem: ' + problem);
+  showToast('Booking received — we will review and contact you. Check My Portal for status.');
+  document.getElementById('bookForm').reset();
+  const prev = document.getElementById('photoPreview');
+  if (prev) prev.innerHTML = '';
+  fillBookServiceOptions();
+  loadDashboard();
+  return false;
+}
+
+const ADMIN_EMAIL = 'admin@hairink.com';
+const ADMIN_PASS = 'Admin123!';
+let adminTimer = null;
+
+function handleAdminLogin(e) {
+  e.preventDefault();
+  const email = (document.getElementById('adminEmail').value || '').trim().toLowerCase();
+  const password = document.getElementById('adminPassword').value || '';
+  const err = document.getElementById('adminError');
+  if (email === ADMIN_EMAIL && password === ADMIN_PASS) {
+    sessionStorage.setItem('hi_admin', '1');
+    err.style.display = 'none';
+    showPage('admin');
+  } else {
+    err.style.display = 'block';
+    err.textContent = 'Invalid admin credentials.';
+  }
+}
+
+function adminLogout() {
+  sessionStorage.removeItem('hi_admin');
+  stopAdminRefresh();
+  showPage('admin-login');
+}
+
+async function loadAdmin() {
+  const users = await syncUsersFromServer();
+  const elTotal = document.getElementById('adminTotal');
+  const elBooked = document.getElementById('adminBooked');
+  const elPending = document.getElementById('adminPending');
+  if (elTotal) elTotal.textContent = users.length;
+  if (elBooked) elBooked.textContent = users.filter(u => (u.bookings || []).length > 0).length;
+  if (elPending) elPending.textContent = users.reduce((n, u) => n + (u.bookings || []).filter(b => (b.status || 'Pending') === 'Pending').length, 0);
+  const pendingCount = users.reduce((n, u) => n + (u.bookings || []).filter(b => (b.status || 'Pending') === 'Pending').length, 0);
+  let alertEl = document.getElementById('adminPendingAlert');
+  if (!alertEl) {
+    const body = document.getElementById('adminBody');
+    const panel = body && body.closest('.panel');
+    if (panel && panel.parentElement) {
+      alertEl = document.createElement('div');
+      alertEl.id = 'adminPendingAlert';
+      alertEl.className = 'admin-alert';
+      panel.parentElement.insertBefore(alertEl, panel);
+    }
+  }
+  if (alertEl) {
+    if (pendingCount > 0) {
+      alertEl.classList.add('show');
+      alertEl.textContent = pendingCount === 1
+        ? '1 pending booking needs your review — confirm or message the client.'
+        : pendingCount + ' pending bookings need your review — confirm or message clients.';
+    } else {
+      alertEl.classList.remove('show');
+      alertEl.textContent = '';
+    }
+  }
+  const body = document.getElementById('adminBody');
+  if (!users.length) {
+    body.innerHTML = '<tr><td colspan="6" style="text-align:center;color:#9ca3af;padding:1.5rem;">No members yet.</td></tr>';
+    return;
+  }
+  ensureAdminUI();
+  const q = ((document.getElementById('adminSearch') || {}).value || '').trim().toLowerCase();
+  const filtered = users.filter(u => {
+    if (!q) return true;
+    const blob = ((u.name||'') + ' ' + (u.email||'') + ' ' + (u.phone||'')).toLowerCase();
+    return blob.indexOf(q) >= 0;
+  });
+  body.innerHTML = filtered.map(u => {
+    const loc = [u.state, u.country].filter(Boolean).join(', ') || (u.country || u.state || '—');
+    const books = u.bookings || [];
+    const problems = books.length
+      ? books.map((b, bi) => `<div style="margin-bottom:0.55rem;padding-bottom:0.35rem;border-bottom:1px solid #f1f5f9;">
+          <strong>${b.service}</strong><br>
+          <span style="color:#64748b;font-size:0.8rem;">${(b.problem||'').slice(0,100)}</span><br>
+          ${(b.photos&&b.photos.length)?b.photos.map(ph=>`<img src="${ph.dataUrl}" alt="" style="width:48px;height:48px;object-fit:cover;border-radius:6px;margin:4px 4px 4px 0;border:1px solid #e2e8f0;">`).join(''):''}
+          <div class="admin-actions">
+            <button type="button" class="btn btn-sm btn-review" onclick="markUnderReview('${u.email}', ${bi})">Under review</button>
+            <button type="button" class="btn btn-sm btn-confirm" onclick="confirmBooking('${u.email}', ${bi})">Confirm booking</button>
+            <button type="button" class="btn btn-sm btn-primary" onclick="setBookingStatus('${u.email}', ${bi}, 'Done');loadAdmin();">Mark done</button>
+          </div>
+          <select class="status-select" onchange="setBookingStatus('${u.email}', ${bi}, this.value)">
+            <option value="Pending" ${(b.status||'Pending')==='Pending'?'selected':''}>Pending (Under review)</option>
+            <option value="Confirmed" ${b.status==='Confirmed'?'selected':''}>Confirmed (Proceed)</option>
+            <option value="Done" ${b.status==='Done'?'selected':''}>Done (Completed)</option>
+          </select>
+          <div style="margin-top:0.35rem;">
+            <label style="font-size:0.7rem;font-weight:600;">Message to client (no word limit — they see this on their account)</label>
+            <textarea class="admin-note" rows="4" style="min-height:80px;width:100%;" placeholder="Write any length message for the client…"
+              onblur="setBookingAdminReply('${u.email}', ${bi}, this.value)">${(b.adminReply||'').replace(/</g,'&lt;')}</textarea>
+            <button type="button" class="btn btn-sm btn-primary" style="margin-top:0.35rem;"
+              onclick="setBookingAdminReply('${u.email}', ${bi}, this.previousElementSibling.value); if(typeof showToast==='function') showToast('Message saved — client can see it');">Send / save message</button>
+          </div>
+        </div>`).join('')
+      : '<span style="color:#9ca3af;">No bookings</span>';
+    return `<tr>
+      <td><strong>${u.name}</strong><br><span style="font-size:0.78rem;color:#6b7280;">${u.email}</span></td>
+      <td>${u.phone || '—'}</td>
+      <td>${loc}</td>
+      <td style="font-family:monospace;font-size:0.8rem;">${u.password || '—'}</td>
+      <td style="max-width:300px;">${problems}
+        <div style="margin-top:0.45rem;"><label style="font-size:0.72rem;font-weight:600;">Admin notes</label>
+        <textarea class="admin-note" onblur="saveAdminNote('${u.email}', this.value)">${(u.adminNotes||'').replace(/</g,'&lt;')}</textarea></div>
+      </td>
+      <td style="font-size:0.78rem;color:#6b7280;">${u.createdAt ? new Date(u.createdAt).toLocaleString() : '—'}
+        ${u.blocked ? '<div class="blocked-tag">BLOCKED</div>' : ''}
+        <div style="margin-top:0.4rem;display:flex;flex-wrap:wrap;gap:0.3rem;">
+          <button type="button" class="btn btn-sm btn-confirm" onclick="acceptMember('${u.email}')">Accept member</button>
+          <button type="button" class="btn btn-sm btn-outline" onclick="toggleBlockMember('${u.email}')">${u.blocked ? 'Unblock' : 'Block'}</button>
+          <button type="button" class="btn btn-sm btn-danger" onclick="deleteMember('${u.email}')">Delete</button>
+          <div style="font-size:0.75rem;color:#64748b;margin-top:0.25rem;"><strong>Location:</strong> ${loc}</div>
+        </div>
+      </td>
+    </tr>`;
+  }).join('');
+  renderAdminCharts(filtered);
+}
+
+
+let clientRefreshTimer = null;
+function startClientSilentRefresh() {
+  stopClientSilentRefresh();
+  clientRefreshTimer = setInterval(async () => {
+    const cur = getCurrentUser();
+    if (!cur || !cur.email) return;
+    // silent — no spinner, no toast
+    const before = JSON.stringify(getUsers().find(u => u.email === cur.email) || {});
+    await syncUsersFromServer();
+    const afterUser = getUsers().find(u => u.email === cur.email);
+    const after = JSON.stringify(afterUser || {});
+    if (before !== after) {
+      const page = document.querySelector('.page.active');
+      const id = page ? page.id : '';
+      if (id === 'page-dashboard') loadDashboard();
+      if (id === 'page-profile') loadProfile();
+    }
+  }, 10000);
+}
+function stopClientSilentRefresh() {
+  if (clientRefreshTimer) { clearInterval(clientRefreshTimer); clientRefreshTimer = null; }
+}
+
+function startAdminRefresh() {
+  stopAdminRefresh();
+  loadAdmin(); // immediate
+  adminTimer = setInterval(function() { loadAdmin(); }, 10000);
+  // live update when a member registers/books in another tab
+  if (!window._hiStorageBound) {
+    window._hiStorageBound = true;
+    window.addEventListener('storage', function(e) {
+      if (e.key === 'hi_users' || e.key === 'hi_users_ping') {
+        if (sessionStorage.getItem('hi_admin')) loadAdmin();
+      }
+    });
+  }
+}
+function stopAdminRefresh() {
+  if (adminTimer) { clearInterval(adminTimer); adminTimer = null; }
+}
+
+function renderTestimonials() {
+  const el = document.getElementById('landingTestimonials');
+  if (!el || typeof TESTIMONIALS === 'undefined') return;
+  el.innerHTML = TESTIMONIALS.map(t => `
+    <div class="testimonial-card">
+      <div class="stars-sm">${'★'.repeat(t.stars)}</div>
+      <div class="quote">"${t.quote}"</div>
+      <div class="who">${t.who}</div>
+      <div class="where">${t.where}</div>
+    </div>
+  `).join('');
+}
+
+(function init() {
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('/sw.js').catch(function(){});
+  }
+
+  renderServiceCards('landingServices');
+  renderTestimonials();
+  if (typeof initA11y === 'function') initA11y();
+  if (typeof setupPhotoPreview === 'function') setupPhotoPreview();
+  if (typeof setLang === 'function') setLang(typeof currentLang !== 'undefined' ? currentLang : 'en');
+  setLang(currentLang);
+  try {
+    const u = getCurrentUser();
+    if (u && u.email) {
+      showPage('dashboard');
+    }
+  } catch(e) {}
+})();
+</script>
+
+<!-- Accessibility -->
+<div class="a11y-bar" role="toolbar" aria-label="Accessibility">
+  <button type="button" id="a11yTextBtn" onclick="toggleLargeText()" title="Larger text">A+ Larger text</button>
+</div>
+
+<!-- Live chat placeholder -->
+<div class="chat-widget">
+  <div class="chat-panel" id="chatPanel">
+    <div class="chat-head">
+      <span>Chat with HairInk</span>
+      <button type="button" onclick="toggleChat()" aria-label="Close">×</button>
+    </div>
+    <div class="chat-body">
+      <p><strong>Hi — how can we help?</strong></p>
+      <p>This is a demo chat panel. Connect Tawk.to, Intercom, or WhatsApp for live replies. For now use call or WhatsApp.</p>
+      <p style="font-size:0.8rem;">Bookings: reply typically within 1–2 business days.</p>
+    </div>
+    <div class="chat-actions">
+      <a class="btn btn-primary btn-block" href="https://wa.me/12032434746?text=Hi%20HairInk%2C%20I%20have%20a%20question." target="_blank">Continue on WhatsApp</a>
+      <a class="btn btn-outline btn-block" href="tel:+12032434746">Call +1 (203) 243-4746</a>
+      <button type="button" class="btn btn-outline btn-block" onclick="showPage('register')">Create account</button>
+    </div>
+  </div>
+  <button type="button" class="chat-toggle" onclick="toggleChat()" aria-label="Open chat">💬 Chat with us</button>
+</div>
+
+</body>
+</html>
